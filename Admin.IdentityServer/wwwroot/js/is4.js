@@ -1,0 +1,3 @@
+function login() {
+    return false;
+}

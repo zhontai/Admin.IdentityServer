@@ -1,0 +1,770 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Admin.IdentityServer</name>
+    </assembly>
+    <members>
+        <member name="M:Admin.IdentityServer.Account.AdminProfileService.#ctor(Microsoft.Extensions.Logging.ILogger{Admin.IdentityServer.Account.AdminProfileService},FreeSql.IBaseRepository{Admin.IdentityServer.Domain.Admin.UserEntity})">
+            <summary>
+            
+            </summary>
+            <param name="logger"></param>
+            <param name="userRepository"></param>
+        </member>
+        <member name="M:Admin.IdentityServer.Account.AdminProfileService.GetProfileDataAsync(IdentityServer4.Models.ProfileDataRequestContext)">
+            <summary>
+            获得用户信息
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Account.AdminProfileService.IsActiveAsync(IdentityServer4.Models.IsActiveContext)">
+            <summary>
+            验证用户是否有效
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Account.AdminResourceOwnerPasswordValidator.ValidateAsync(IdentityServer4.Validation.ResourceOwnerPasswordValidationContext)">
+            <summary>
+            验证登录信息
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.IdentityServer.Account.ClaimAttributes">
+            <summary>
+            Claim属性
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Account.ClaimAttributes.UserId">
+            <summary>
+            用户Id
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Account.ClaimAttributes.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Account.ClaimAttributes.UserNickName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.Urls">
+            <summary>
+            Api地址，默认 https://localhost:5000
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.CorUrls">
+            <summary>
+            跨域地址，默认 http://*:8000
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.Certificate">
+            <summary>
+            证书
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.Swagger">
+            <summary>
+            Swagger文档
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.Health">
+            <summary>
+            健康检查
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.Db">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.AdminUI">
+            <summary>
+            Admin前端客户端
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Configs.Certificate">
+            <summary>
+            证书
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.Certificate.Path">
+            <summary>
+            地址
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.Certificate.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Configs.Db">
+            <summary>
+            数据库
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.Db.Curd">
+            <summary>
+            监听Curd操作
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.Db.Type">
+            <summary>
+            数据库类型
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.Db.ConnectionString">
+            <summary>
+            数据库字符串
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Configs.AdminUI">
+            <summary>
+            Admin前端客户端
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AdminUI.RedirectUris">
+            <summary>
+            登录成功跳转地址
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AdminUI.PostLogoutRedirectUris">
+            <summary>
+            退出登录跳转地址
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AdminUI.Secret">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Configs.AdminUI.AccessTokenLifetime">
+            <summary>
+            token有效时间
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.AccountController">
+            <summary>
+            This sample controller implements a typical login/logout/provision workflow for local and external accounts.
+            The login service encapsulates the interactions with the user data store. This data store is in-memory only and cannot be used for production!
+            The interaction service provides a way for the UI to communicate with identityserver for validation and context retrieval
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.AccountController.Login(System.String)">
+            <summary>
+            Entry point into the login workflow
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.AccountController.Login(Admin.IdentityServer.LoginInputModel)">
+            <summary>
+            Handle postback from username/password login
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.AccountController.Logout(System.String)">
+            <summary>
+            Show logout page
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.AccountController.Logout(Admin.IdentityServer.LogoutInputModel)">
+            <summary>
+            Handle logout page postback
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.ExternalController.Challenge(System.String,System.String)">
+            <summary>
+            initiate roundtrip to external authentication provider
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.ExternalController.Callback">
+            <summary>
+            Post processing of external authentication
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.ConsentController">
+            <summary>
+            This controller processes the consent UI
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.ConsentController.Index(System.String)">
+            <summary>
+            Shows the consent screen
+            </summary>
+            <param name="returnUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.ConsentController.Index(Admin.IdentityServer.ConsentInputModel)">
+            <summary>
+            Handles the consent screen postback
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.Extensions.IsPkceClientAsync(IdentityServer4.Stores.IClientStore,System.String)">
+            <summary>
+            Determines whether the client is configured to use PKCE.
+            </summary>
+            <param name="store">The store.</param>
+            <param name="client_id">The client identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.IdentityServer.GrantsController">
+            <summary>
+            This sample controller allows a user to revoke grants given to clients
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.GrantsController.Index">
+            <summary>
+            Show list of grants
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.GrantsController.Revoke(System.String)">
+            <summary>
+            Handle postback to revoke a client
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.HomeController.Error(System.String)">
+            <summary>
+            Shows the error page
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Domain.Admin.LogAbstract">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.LogAbstract.Result">
+            <summary>
+            操作结果
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Domain.Admin.LoginLogEntity">
+            <summary>
+            操作日志
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Domain.Admin.UserEntity">
+            <summary>
+            用户
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.UserEntity.UserName">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.UserEntity.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.UserEntity.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.UserEntity.Avatar">
+            <summary>
+            头像
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.UserEntity.Status">
+            <summary>
+            状态
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Entity`1.Id">
+            <summary>
+            编号
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Domain.EntityAdd`1">
+            <summary>
+            实体创建审计
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityAdd`1.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityAdd`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityAdd`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Domain.EntityBase`1">
+            <summary>
+            实体审计
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.CreatedTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.ModifiedUserId">
+            <summary>
+            修改者Id
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.ModifiedUserName">
+            <summary>
+            修改者
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.EntityBase`1.ModifiedTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.IEntitySoftDelete.IsDeleted">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.IEntityVersion.Version">
+            <summary>
+            版本
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.DbServiceCollectionExtensions.AddDb(Microsoft.Extensions.DependencyInjection.IServiceCollection,Admin.IdentityServer.Configs.AppSettings)">
+            <summary>
+            添加数据库
+            </summary>
+            <param name="services"></param>
+            <param name="appSettings"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.IdentityServer.Input.LoginLogAddInput">
+            <summary>
+            添加
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.IP">
+            <summary>
+            IP
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.Browser">
+            <summary>
+            浏览器
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.Os">
+            <summary>
+            操作系统
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.Device">
+            <summary>
+            设备
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.BrowserInfo">
+            <summary>
+            浏览器信息
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.ElapsedMilliseconds">
+            <summary>
+            耗时（毫秒）
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.Status">
+            <summary>
+            操作状态
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.Msg">
+            <summary>
+            操作消息
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.Result">
+            <summary>
+            操作结果
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.CreatedUserId">
+            <summary>
+            创建者Id
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.CreatedUserName">
+            <summary>
+            创建者
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Output.IResponseOutput">
+            <summary>
+            响应数据输出接口
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.IResponseOutput.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.IResponseOutput.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Output.IResponseOutput`1">
+            <summary>
+            响应数据输出泛型接口
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.IResponseOutput`1.Data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Output.ResponseOutput`1">
+            <summary>
+            响应数据输出
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.ResponseOutput`1.Success">
+            <summary>
+            是否成功标记
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.ResponseOutput`1.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.ResponseOutput`1.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Output.ResponseOutput`1.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput`1.Ok(`0,System.String)">
+            <summary>
+            成功
+            </summary>
+            <param name="data">数据</param>
+            <param name="msg">消息</param>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput`1.NotOk(System.String,`0)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <param name="data">数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.IdentityServer.Output.ResponseOutput">
+            <summary>
+            响应数据静态输出
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput.Ok``1(``0,System.String)">
+            <summary>
+            成功
+            </summary>
+            <param name="data">数据</param>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput.Ok">
+            <summary>
+            成功
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput.NotOk``1(System.String,``0)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <param name="data">数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput.NotOk(System.String)">
+            <summary>
+            失败
+            </summary>
+            <param name="msg">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput.Result``1(System.Boolean)">
+            <summary>
+            根据布尔值返回结果
+            </summary>
+            <param name="success"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Output.ResponseOutput.Result(System.Boolean)">
+            <summary>
+            根据布尔值返回结果
+            </summary>
+            <param name="success"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.IdentityServer.Utils.DesEncrypt">
+            <summary>
+            Des加解密
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.DesEncrypt.Encrypt(System.String,System.String)">
+            <summary>
+            DES+Base64加密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="encryptString">加密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.DesEncrypt.Decrypt(System.String,System.String)">
+            <summary>
+            DES+Base64解密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="decryptString">解密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.DesEncrypt.Encrypt4Hex(System.String,System.String,System.Boolean)">
+            <summary>
+            DES+16进制加密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="encryptString">加密字符串</param>
+            <param name="key">秘钥</param>
+            <param name="lowerCase">是否小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.DesEncrypt.Decrypt4Hex(System.String,System.String)">
+            <summary>
+            DES+16进制解密
+            <para>采用ECB、PKCS7</para>
+            </summary>
+            <param name="decryptString">解密字符串</param>
+            <param name="key">秘钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.DesEncrypt.Encrypt(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            DES加密
+            </summary>
+            <param name="encryptString"></param>
+            <param name="key"></param>
+            <param name="hex"></param>
+            <param name="lowerCase"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.DesEncrypt.Decrypt(System.String,System.String,System.Boolean)">
+            <summary>
+            DES解密
+            </summary>
+            <param name="decryptString"></param>
+            <param name="key"></param>
+            <param name="hex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.IPHelper.IsIP(System.String)">
+            <summary>
+            是否为ip
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.IPHelper.GetIP(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            获得IP地址
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.IPHelper.GetMACIp">
+            <summary>
+            获得MAC地址
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Admin.IdentityServer.Utils.MD5Encrypt">
+            <summary>
+            MD5加密
+            </summary>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.MD5Encrypt.Encrypt16(System.String)">
+            <summary>
+            16位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.MD5Encrypt.Encrypt32(System.String)">
+            <summary>
+            32位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.Utils.MD5Encrypt.Encrypt64(System.String)">
+            <summary>
+            64位MD5加密
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.IsNull(System.String)">
+            <summary>
+            判断字符串是否为Null、空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.NotNull(System.String)">
+            <summary>
+            判断字符串是否不为Null、空
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.EqualsIgnoreCase(System.String,System.String)">
+            <summary>
+            与字符串进行比较，忽略大小写
+            </summary>
+            <param name="s"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.FirstCharToLower(System.String)">
+            <summary>
+            首字母转小写
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.FirstCharToUpper(System.String)">
+            <summary>
+            首字母转大写
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.ToBase64(System.String)">
+            <summary>
+            转为Base64，UTF-8格式
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.ToBase64(System.String,System.Text.Encoding)">
+            <summary>
+            转为Base64
+            </summary>
+            <param name="s"></param>
+            <param name="encoding">编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.ToHex(System.Byte[],System.Boolean)">
+            <summary>
+            转换为16进制
+            </summary>
+            <param name="bytes"></param>
+            <param name="lowerCase">是否小写</param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.HexToBytes(System.String)">
+            <summary>
+            16进制转字节数组
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Admin.IdentityServer.StringExtensions.ToBase64(System.Byte[])">
+            <summary>
+            转换为Base64
+            </summary>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

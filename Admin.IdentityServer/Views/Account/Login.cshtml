@@ -1,0 +1,60 @@
+@model LoginViewModel
+
+<div class="header">
+    <span>Admin后台管理系统</span>
+    <div class="list">
+
+    </div>
+</div>
+
+<div class="login-body">
+    <div class="row">
+        <div class="col-sm-6 login-desc">
+            <p class="main-title">
+                登录服务
+            </p>
+            <p class="secondary-title">
+                统一认证授权服务中心
+            </p>
+        </div>
+        <div class="col-sm-6">
+            @if (Model.EnableLocalLogin)
+            {
+                <form asp-route="Login">
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div class="form-group">
+                        <label asp-for="UserName"></label>
+                        <input class="form-control" placeholder="账号" asp-for="UserName" autofocus autocomplete="off" value="user">
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input type="password" class="form-control" placeholder="密码" asp-for="Password" autocomplete="off" value="111111">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    @if (Model.AllowRememberLogin)
+                    {
+                        <div class="form-group login-remember">
+                            <label asp-for="RememberLogin">
+                                <input asp-for="RememberLogin">
+                                <strong>记住我</strong>
+                            </label>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <button class="btn" name="button" value="login">登&nbsp;&nbsp;录</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="login-footer">
+    © 2020 All Rights Reserved. zhontai
+</div>
+
+@section scripts
+{
+    <script src="~/js/is4.js?v=@Guid.NewGuid()"></script>
+}
