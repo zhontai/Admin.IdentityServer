@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/css/is4.css",
     "inputFile": "wwwroot/css/is4.less"
+  },
+  {
+    "outputFile": "wwwroot/js/is4.es5.js",
+    "inputFile": "wwwroot/js/is4.js"
   }
 ]

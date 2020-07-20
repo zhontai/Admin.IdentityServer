@@ -33,6 +33,9 @@ namespace Admin.IdentityServer
 
         public void ConfigureServices(IServiceCollection services)
         {
+            //界面即时编译，Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
+            //services.AddRazorPages().AddRazorRuntimeCompilation();
+
             services.AddSingleton(_appSettings);
             services.AddSingleton(new IPHelper());
             services.AddDb(_appSettings);

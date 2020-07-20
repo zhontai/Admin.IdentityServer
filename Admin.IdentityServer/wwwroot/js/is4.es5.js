@@ -1,31 +1,32 @@
-//获取输入参数
+﻿//获取输入参数
+"use strict";
+
 function getInput() {
-    const input = {
+    var input = {
         userName: $.trim($("#userName").val()),
         password: $.trim($("#password").val()),
         rememberLogin: !!$("#rememberLogin:checked").val(),
         returnUrl: $("#returnUrl").val(),
         __RequestVerificationToken: $("input[name='__RequestVerificationToken']:first").val()
-    }
+    };
     return input;
 }
 //验证登录信息
 function validate() {
-    const $userName = $("#userName");
+    var $userName = $("#userName");
     if ($.trim($userName.val()) === '') {
         $userName.focus();
         $("#lblUserName").show();
         return false;
     }
 
-    const $password = $("#password");
+    var $password = $("#password");
     if ($.trim($password.val()) === '') {
         $password.focus();
         $("#lblPassword").show();
         return false;
     }
     return true;
-    
 }
 //用户名检查
 $("#userName").blur(function () {
@@ -45,15 +46,15 @@ $("#password").blur(function () {
 });
 //登录
 $("#btnLogin").click(function () {
-    const isValid = validate();
+    var isValid = validate();
     if (!isValid) {
         return false;
     }
 
-    const $me = $(this);
+    var $me = $(this);
     $me.prop('disabled', true).addClass('is-disabled').text('登录中...');
-    const input = getInput();
-    let timmerId = null;
+    var input = getInput();
+    var timmerId = null;
     $.post('/user/login', input, function (res) {
         if (!res) {
             $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
@@ -63,7 +64,7 @@ $("#btnLogin").click(function () {
             window.location.href = $.trim($("#returnUrl").val());
         } else {
             $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
-            let msg = '';
+            var msg = '';
             if (res.data === 1) {
                 msg = '您的账号输入不正确，请重新输入';
                 $("#userName").focus();
@@ -85,3 +86,4 @@ $("#btnLogin").click(function () {
 
     return false;
 });
+
