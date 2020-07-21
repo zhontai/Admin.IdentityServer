@@ -49,18 +49,24 @@ $("#btnLogin").click(function () {
     if (!isValid) {
         return false;
     }
-
+    
     const $me = $(this);
     $me.prop('disabled', true).addClass('is-disabled').text('登录中...');
     const input = getInput();
     let timmerId = null;
     $.post('/user/login', input, function (res) {
+        debugger
         if (!res) {
             $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
             return;
         }
+        debugger
         if (res.code === 1) {
-            window.location.href = $.trim($("#returnUrl").val());
+            const returnUrl = $.trim($("#returnUrl").val());
+            if (returnUrl) {
+                
+                window.location.href = returnUrl;
+            }
         } else {
             $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
             let msg = '';
@@ -78,7 +84,7 @@ $("#btnLogin").click(function () {
                 }
                 timmerId = window.setTimeout(function () {
                     $(".my-alert:first").hide().text('');
-                }, 2000);
+                }, 3000);
             }
         }
     });

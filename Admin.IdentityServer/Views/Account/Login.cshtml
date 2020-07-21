@@ -21,8 +21,8 @@
         <div class="col-sm-6">
             @if (Model.EnableLocalLogin)
             {
-                <div class="my-alert my-alert--error is-light"></div>
                 <form asp-route="Login">
+                    <div class="my-alert my-alert--error is-light"></div>
                     <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
                     <div class="form-group">
                         <label asp-for="UserName"></label>
@@ -58,5 +58,5 @@
 
 @section scripts
 {
-    <script src="~/js/is4.js?v=1.1"></script>
+    <script src="~/js/is4.js?v=1.1.1"></script>
 }

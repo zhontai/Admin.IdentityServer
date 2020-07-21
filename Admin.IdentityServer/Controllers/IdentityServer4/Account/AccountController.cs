@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using Admin.IdentityServer.Configs;
 using Admin.IdentityServer.Domain.Admin;
 using Admin.IdentityServer.Output;
 using Admin.IdentityServer.Utils;
@@ -36,8 +37,8 @@ namespace Admin.IdentityServer
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
+        private readonly AppSettings _appSettings;
         //private readonly IHttpClientFactory _httpClientFactory;
-        //private readonly AppSettings _appSettings;
         //private readonly IPHelper _iPHelper;
 
         public AccountController(
@@ -46,9 +47,9 @@ namespace Admin.IdentityServer
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events
+            IEventService events,
+            AppSettings appSettings
             //IHttpClientFactory httpClientFactory,
-            //AppSettings appSettings,
             //IPHelper iPHelper
             )
         {
@@ -61,8 +62,9 @@ namespace Admin.IdentityServer
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _appSettings = appSettings;
             //_httpClientFactory = httpClientFactory;
-            //_appSettings = appSettings;
+
             //_iPHelper = iPHelper;
         }
 
@@ -73,6 +75,7 @@ namespace Admin.IdentityServer
         [Route("user/login")]
         public async Task<IActionResult> Login(string returnUrl)
         {
+            returnUrl = returnUrl ?? _appSettings.AdminUI.RedirectUris.First().Replace("/callback","");
             // build a model so we know what to show on the login page
             var vm = await BuildLoginViewModelAsync(returnUrl);
 
@@ -208,7 +211,16 @@ namespace Admin.IdentityServer
                 return await Logout(vm);
             }
 
-            return View(vm);
+            //强制跳到客户端界面
+            var postLogoutRedirectUri = _appSettings.AdminUI.PostLogoutRedirectUris.First();
+            if (postLogoutRedirectUri.NotNull())
+            {
+                return Redirect(postLogoutRedirectUri);
+            }
+            else
+            {
+                return View(vm);
+            }
         }
 
         /// <summary>
@@ -243,12 +255,20 @@ namespace Admin.IdentityServer
                 return SignOut(new AuthenticationProperties { RedirectUri = url }, vm.ExternalAuthenticationScheme);
             }
 
-            if(vm.AutomaticRedirectAfterSignOut)
+            var postLogoutRedirectUri = vm.PostLogoutRedirectUri ?? _appSettings.AdminUI.PostLogoutRedirectUris.First();
+            if (vm.AutomaticRedirectAfterSignOut)
             {
-                return Redirect(vm.PostLogoutRedirectUri);
+                return Redirect(postLogoutRedirectUri);
             }
-
-            return View("LoggedOut", vm);
+            //强制跳到客户端界面
+            if (postLogoutRedirectUri.NotNull())
+            {
+                return Redirect(postLogoutRedirectUri);
+            }
+            else
+            {
+                return View("LoggedOut", vm);
+            }
         }
 
         /*

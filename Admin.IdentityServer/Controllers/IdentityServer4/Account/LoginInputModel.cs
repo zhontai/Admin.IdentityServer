@@ -15,7 +15,7 @@ namespace Admin.IdentityServer
         [Display(Name = "µÇÂ¼ÃÜÂë£º")]
         public string Password { get; set; }
         [Display(Name = "¼Ç×¡ÎÒ")]
-        public bool RememberLogin { get; set; }
+        public bool RememberLogin { get; set; } = true;
         public string ReturnUrl { get; set; }
     }
 }

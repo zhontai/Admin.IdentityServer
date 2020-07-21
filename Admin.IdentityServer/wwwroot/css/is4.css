@@ -849,7 +849,8 @@ body.is4 {
   margin: 30px 0 0;
 }
 .login-body form {
-  padding: 25px 25px 15px 25px;
+  position: relative;
+  padding: 40px 25px 15px 25px;
   background-color: #fff;
 }
 .login-body .form-group {
@@ -1001,12 +1002,12 @@ body.is4 {
   padding: 8px 25px;
   margin: 0;
   box-sizing: border-box;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: #fff;
   overflow: hidden;
-  opacity: 1;
   align-items: center;
-  transition: opacity 0.2s;
   font-size: 14px;
   display: none;
 }

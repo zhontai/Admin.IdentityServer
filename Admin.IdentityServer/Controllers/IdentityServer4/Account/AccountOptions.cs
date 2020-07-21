@@ -12,7 +12,7 @@ namespace Admin.IdentityServer
         public static bool AllowRememberLogin = true;
         public static TimeSpan RememberMeLoginDuration = TimeSpan.FromDays(120);
 
-        public static bool ShowLogoutPrompt = true;
+        public static bool ShowLogoutPrompt = false;
         public static bool AutomaticRedirectAfterSignOut = true;
 
         // specify the Windows authentication scheme being used

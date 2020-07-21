@@ -8,11 +8,15 @@
     "inputFile": "wwwroot/css/site.less"
   },
   {
-    "outputFile": "wwwroot/css/is4.css",
-    "inputFile": "wwwroot/css/is4.less"
-  },
-  {
     "outputFile": "wwwroot/js/is4.es5.js",
     "inputFile": "wwwroot/js/is4.js"
+  },
+  {
+    "outputFile": "wwwroot/css/bootstrap.css",
+    "inputFile": "wwwroot/css/bootstrap.less"
+  },
+  {
+    "outputFile": "wwwroot/css/is4.css",
+    "inputFile": "wwwroot/css/is4.less"
   }
 ]
