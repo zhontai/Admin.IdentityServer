@@ -1,5 +1,10 @@
 @model LoginViewModel
 
+@section styles
+{
+    <link rel="stylesheet" href="~/css/is4.min.css?v=1.1.1" />
+}
+
 <div class="header">
     <span>Admin后台管理系统</span>
     <div class="list">
@@ -21,33 +26,31 @@
         <div class="col-sm-6">
             @if (Model.EnableLocalLogin)
             {
-                <form asp-route="Login">
-                    <div class="my-alert my-alert--error is-light"></div>
-                    <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
-                    <div class="form-group">
-                        <label asp-for="UserName"></label>
-                        <input class="form-control" id="userName" placeholder="账号" asp-for="UserName" autofocus autocomplete="off" value="user">
-                        <span class="text-danger field-validation-error" id="lblUserName">请输入账号</span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Password"></label>
-                        <input class="form-control" type="password" id="password" placeholder="密码" asp-for="Password" autocomplete="off" value="111111">
-                        <span class="text-danger field-validation-error" id="lblPassword">请输入密码</span>
-                    </div>
-                    @if (Model.AllowRememberLogin)
-                    {
-                        <div class="form-group login-remember">
-                            <label for="rememberLogin">
-                                <input id="rememberLogin" asp-for="RememberLogin">
-                                <strong>记住我</strong>
-                            </label>
-                        </div>
-                    }
-                    <div class="form-group">
-                        <button id="btnLogin" class="btn" name="button" value="login">登&nbsp;&nbsp;录</button>
-                    </div>
-                </form>
-            }
+<form asp-route="Login">
+    <div class="my-alert my-alert--error is-light"></div>
+    <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input class="form-control" id="userName" placeholder="账号" asp-for="UserName" autofocus autocomplete="off" value="user">
+        <span class="text-danger field-validation-error" id="lblUserName">请输入账号</span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input class="form-control" type="password" id="password" placeholder="密码" asp-for="Password" autocomplete="off" value="111111">
+        <span class="text-danger field-validation-error" id="lblPassword">请输入密码</span>
+    </div>
+    @if (Model.AllowRememberLogin)
+    {
+<div class="form-group login-remember">
+    <label for="rememberLogin">
+        <input id="rememberLogin" asp-for="RememberLogin">
+        <strong>记住我</strong>
+    </label>
+</div>}
+    <div class="form-group">
+        <button id="btnLogin" class="btn" name="button" value="login">登&nbsp;&nbsp;录</button>
+    </div>
+</form>            }
         </div>
     </div>
 </div>
@@ -58,5 +61,5 @@
 
 @section scripts
 {
-    <script src="~/js/is4.js?v=1.1.1"></script>
+    <script src="~/js/is4.es5.min.js?v=1.1.1"></script>
 }

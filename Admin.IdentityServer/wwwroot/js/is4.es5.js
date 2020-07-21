@@ -61,7 +61,11 @@ $("#btnLogin").click(function () {
             return;
         }
         if (res.code === 1) {
-            window.location.href = $.trim($("#returnUrl").val());
+            var returnUrl = $.trim($("#returnUrl").val());
+            if (returnUrl) {
+
+                window.location.href = returnUrl;
+            }
         } else {
             $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
             var msg = '';
@@ -79,7 +83,7 @@ $("#btnLogin").click(function () {
                 }
                 timmerId = window.setTimeout(function () {
                     $(".my-alert:first").hide().text('');
-                }, 2000);
+                }, 3000);
             }
         }
     });

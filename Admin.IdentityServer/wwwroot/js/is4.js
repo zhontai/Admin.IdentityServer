@@ -55,12 +55,10 @@ $("#btnLogin").click(function () {
     const input = getInput();
     let timmerId = null;
     $.post('/user/login', input, function (res) {
-        debugger
         if (!res) {
             $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
             return;
         }
-        debugger
         if (res.code === 1) {
             const returnUrl = $.trim($("#returnUrl").val());
             if (returnUrl) {
