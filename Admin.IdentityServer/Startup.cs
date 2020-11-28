@@ -44,13 +44,13 @@ namespace Admin.IdentityServer
                 {
                     options.UserInteraction = new UserInteractionOptions
                     {
-                        //LoginUrl = "http://localhost:6060/login",
                         LoginUrl = "/user/login",
                         LogoutUrl = "/user/logout"
                     };
                 })
-                .AddInMemoryIdentityResources(Config.Ids)
-                .AddInMemoryApiResources(Config.Apis)
+                .AddInMemoryIdentityResources(Config.IdentityResources)
+                .AddInMemoryApiScopes(Config.ApiScopes)
+                .AddInMemoryApiResources(Config.ApiResources)
                 .AddInMemoryClients(Config.Clients(_appSettings))
                 .AddProfileService<AdminProfileService>()
                 .AddResourceOwnerValidator<AdminResourceOwnerPasswordValidator>();
@@ -80,6 +80,11 @@ namespace Admin.IdentityServer
                 });
             });
             #endregion
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/user/login";
+            });
 
             services.AddSession(options =>
             {
@@ -157,7 +162,8 @@ namespace Admin.IdentityServer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            //app.UseCookiePolicy();
+
+            app.UseCookiePolicy();
             
             app.UseCors("Limit");
 
@@ -166,7 +172,6 @@ namespace Admin.IdentityServer
             app.UseRouting();
 
             app.UseIdentityServer();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
