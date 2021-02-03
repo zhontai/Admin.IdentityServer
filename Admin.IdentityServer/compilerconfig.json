@@ -1,22 +1,22 @@
-﻿[
+[
   {
     "outputFile": "wwwroot/css/main.css",
-    "inputFile": "wwwroot/css/main.less"
+    "inputFile": "wwwroot/css/main.less",
+    "sourceMap": false
   },
   {
     "outputFile": "wwwroot/css/site.css",
-    "inputFile": "wwwroot/css/site.less"
-  },
-  {
-    "outputFile": "wwwroot/js/is4.es5.js",
-    "inputFile": "wwwroot/js/is4.js"
+    "inputFile": "wwwroot/css/site.less",
+    "sourceMap": false
   },
   {
     "outputFile": "wwwroot/css/bootstrap.css",
-    "inputFile": "wwwroot/css/bootstrap.less"
+    "inputFile": "wwwroot/css/bootstrap.less",
+    "sourceMap": false
   },
   {
     "outputFile": "wwwroot/css/is4.css",
-    "inputFile": "wwwroot/css/is4.less"
+    "inputFile": "wwwroot/css/is4.less",
+    "sourceMap": false
   }
 ]
