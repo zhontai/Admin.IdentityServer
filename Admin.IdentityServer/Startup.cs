@@ -164,9 +164,7 @@ namespace Admin.IdentityServer
             }
 
             app.UseCookiePolicy();
-            
             app.UseCors("Limit");
-
             app.UseSession();
             app.UseStaticFiles();
             app.UseRouting();
