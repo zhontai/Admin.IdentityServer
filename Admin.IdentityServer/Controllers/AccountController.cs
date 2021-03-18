@@ -53,6 +53,7 @@ namespace Admin.IdentityServer
         }
 
         [HttpGet]
+        [Route("")]
         [Route("user/login")]
         public IActionResult Login(string returnUrl)
         {

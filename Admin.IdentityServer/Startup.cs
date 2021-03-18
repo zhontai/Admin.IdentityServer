@@ -192,7 +192,7 @@ namespace Admin.IdentityServer
                 app.UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Admin.IdentityServer");
-                    options.RoutePrefix = "";
+                    //options.RoutePrefix = "";
                 });
             }
         }
