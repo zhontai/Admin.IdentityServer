@@ -8,6 +8,7 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using FreeSql;
 using Admin.IdentityServer.Domain.Admin;
+using Admin.IdentityServer.Configs;
 
 namespace Admin.IdentityServer.Account
 {
@@ -15,16 +16,20 @@ namespace Admin.IdentityServer.Account
     {
         private readonly ILogger _logger;
         private readonly IBaseRepository<UserEntity> _userRepository;
+        private readonly IBaseRepository<TenantEntity> _tenantRepository;
+        private readonly AppSettings _appSettings;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="userRepository"></param>
-        public AdminProfileService(ILogger<AdminProfileService> logger, IBaseRepository<UserEntity> userRepository)
+        public AdminProfileService(
+            ILogger<AdminProfileService> logger, 
+            IBaseRepository<UserEntity> userRepository,
+            IBaseRepository<TenantEntity> tenantRepository,
+            AppSettings appSettings
+        )
         {
             _logger = logger;
             _userRepository = userRepository;
+            _tenantRepository = tenantRepository;
+            _appSettings = appSettings;
         }
 
         /// <summary>
@@ -37,19 +42,26 @@ namespace Admin.IdentityServer.Account
             var sub = context.Subject?.GetSubjectId();
             if (sub == null) throw new Exception("用户Id为空");
 
-            var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => new { a.UserName, a.NickName });
+            var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => new { a.UserName, a.NickName,a.TenantId });
             if (user == null)
             {
                 _logger?.LogWarning("用户{0}不存在", sub);
             }
             else
             {
-                
+               
+
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimAttributes.UserName, user.UserName ?? ""),
                     new Claim(ClaimAttributes.UserNickName, user.NickName ?? ""),
+                    new Claim(ClaimAttributes.TenantId, user.TenantId?.ToString() ?? "")
                 };
+                if (_appSettings.TenantDbType == TenantDbType.Share)
+                {
+                    var tenantType = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
+                    claims.Add(new Claim(ClaimAttributes.TenantType, tenantType?.ToString() ?? ""));
+                }
 
                 context.IssuedClaims = claims;
             }

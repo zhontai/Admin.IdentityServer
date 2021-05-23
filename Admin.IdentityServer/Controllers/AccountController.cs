@@ -80,7 +80,7 @@ namespace Admin.IdentityServer
             var context = await _interaction.GetAuthorizationContextAsync(input.ReturnUrl);
              
             var user = await _userRepository.Select.Where(a => a.UserName == input.UserName)
-                .ToOneAsync(a => new { a.Id, a.Password, a.NickName });
+                .ToOneAsync(a => new { a.Id, a.Password, a.NickName, a.TenantId });
 
             if (user == null)
             {
@@ -116,6 +116,7 @@ namespace Admin.IdentityServer
             //Ð´µÇÂ¼ÈÕÖ¾
             var loginLogEntity = new LoginLogEntity()
             {
+                TenantId = user.TenantId,
                 CreatedUserId = user.Id,
                 NickName = user.NickName,
                 CreatedUserName = input.UserName,

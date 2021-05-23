@@ -3,6 +3,25 @@ using FreeSql;
 
 namespace Admin.IdentityServer.Configs
 {
+    /// <summary>
+    /// 租户数据库类型
+    /// </summary>
+    public enum TenantDbType
+    {
+        /// <summary>
+        /// 无租户
+        /// </summary>
+        None,
+        /// <summary>
+        /// 共享数据库
+        /// </summary>
+        Share,
+        /// <summary>
+        /// 独立数据库
+        /// </summary>
+        Own
+    }
+
     public class AppSettings
     {
         /// <summary>
@@ -29,6 +48,11 @@ namespace Admin.IdentityServer.Configs
         /// 健康检查
         /// </summary>
         public bool Health { get; set; } = false;
+
+        /// <summary>
+        /// 租户类型
+        /// </summary>
+        public TenantDbType TenantDbType { get; set; } = TenantDbType.Share;
 
         /// <summary>
         /// 数据库

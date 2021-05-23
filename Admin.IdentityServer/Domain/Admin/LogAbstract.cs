@@ -8,6 +8,12 @@ namespace Admin.IdentityServer.Domain.Admin
     public abstract class LogAbstract : EntityAdd
     {
         /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10, CanUpdate = false)]
+        public long? TenantId { get; set; }
+
+        /// <summary>
         /// 昵称
         /// </summary>
         [Column(StringLength = 60)]

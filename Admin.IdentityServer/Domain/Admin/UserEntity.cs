@@ -7,9 +7,15 @@ namespace Admin.IdentityServer.Domain.Admin
     /// 用户
     /// </summary>
 	[Table(Name = "ad_user")]
-    [Index("uk_user_username", nameof(UserName), true)]
+    [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
     public class UserEntity: EntityBase
     {
+        /// <summary>
+        /// 租户Id
+        /// </summary>
+        [Column(Position = -10)]
+        public long? TenantId { get; set; }
+
         /// <summary>
         /// 账号
         /// </summary>
