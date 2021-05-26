@@ -16,6 +16,7 @@ using HealthChecks.UI.Client;
 using Admin.IdentityServer.Configs;
 using Admin.IdentityServer.Account;
 using Admin.IdentityServer.Utils;
+using Yitter.IdGenerator;
 
 namespace Admin.IdentityServer
 {
@@ -35,6 +36,9 @@ namespace Admin.IdentityServer
         {
             //界面即时编译，Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
             //services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            //雪花漂移算法
+            YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
 
             services.AddSingleton(_appSettings);
             services.AddSingleton(new IPHelper());

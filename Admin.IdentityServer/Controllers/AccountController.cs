@@ -18,6 +18,7 @@ using Admin.IdentityServer.Input;
 using Admin.IdentityServer.Models;
 using Admin.IdentityServer.Output;
 using Admin.IdentityServer.Utils;
+using Yitter.IdGenerator;
 
 namespace Admin.IdentityServer
 {
@@ -116,6 +117,7 @@ namespace Admin.IdentityServer
             //Ð´µÇÂ¼ÈÕÖ¾
             var loginLogEntity = new LoginLogEntity()
             {
+                Id = YitIdHelper.NextId(),
                 TenantId = user.TenantId,
                 CreatedUserId = user.Id,
                 NickName = user.NickName,
