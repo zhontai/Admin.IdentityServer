@@ -103,7 +103,7 @@ var userDefaults = {
 $(".my-radio-group .my-radio-button__inner").click(function () {
     $(".my-radio-group .my-radio-button__inner.active").removeClass('active');
     $(this).addClass("active");
-    var userType = $(this).data("type");
+    var userType = $(this).data("value");
     var user = userDefaults[userType];
     if (user) {
         $("#userName").val(user.userName);
