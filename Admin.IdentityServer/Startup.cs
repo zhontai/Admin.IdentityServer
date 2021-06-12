@@ -44,6 +44,23 @@ namespace Admin.IdentityServer
             services.AddSingleton(new IPHelper());
             services.AddDb(_appSettings);
 
+            #region Cors 跨域
+            if (_appSettings.CorUrls?.Length > 0)
+            {
+                services.AddCors(options =>
+                {
+                    options.AddPolicy("Limit", policy =>
+                    {
+                        policy
+                        .WithOrigins(_appSettings.CorUrls)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                    });
+                });
+            }
+            #endregion
+
             var builder = services.AddIdentityServer(options =>
                 {
                     options.UserInteraction = new UserInteractionOptions
@@ -70,20 +87,6 @@ namespace Admin.IdentityServer
                     _appSettings.Certificate.Password)
                 );
             }
-
-            #region Cors 跨域
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Limit", policy =>
-                {
-                    policy
-                    .WithOrigins(_appSettings.CorUrls)
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials();
-                });
-            });
-            #endregion
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -166,9 +169,9 @@ namespace Admin.IdentityServer
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseCookiePolicy();
+            
             app.UseCors("Limit");
+            app.UseCookiePolicy();
             app.UseSession();
             app.UseStaticFiles();
             app.UseRouting();
