@@ -57,10 +57,11 @@ namespace Admin.IdentityServer.Account
                     new Claim(ClaimAttributes.UserNickName, user.NickName ?? ""),
                     new Claim(ClaimAttributes.TenantId, user.TenantId?.ToString() ?? "")
                 };
-                if (_appSettings.TenantDbType == TenantDbType.Share)
+                if (_appSettings.Tenant)
                 {
-                    var tenantType = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => a.TenantType);
-                    claims.Add(new Claim(ClaimAttributes.TenantType, tenantType?.ToString() ?? ""));
+                    var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+                    claims.Add(new Claim(ClaimAttributes.TenantType, tenant.TenantType?.ToString() ?? ""));
+                    claims.Add(new Claim(ClaimAttributes.DataIsolationType, tenant.DataIsolationType.ToString()));
                 }
 
                 context.IssuedClaims = claims;

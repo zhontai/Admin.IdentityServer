@@ -55,24 +55,9 @@
             租户类型
             </summary>
         </member>
-        <member name="T:Admin.IdentityServer.Configs.TenantDbType">
+        <member name="F:Admin.IdentityServer.Account.ClaimAttributes.DataIsolationType">
             <summary>
-            租户数据库类型
-            </summary>
-        </member>
-        <member name="F:Admin.IdentityServer.Configs.TenantDbType.None">
-            <summary>
-            无租户
-            </summary>
-        </member>
-        <member name="F:Admin.IdentityServer.Configs.TenantDbType.Share">
-            <summary>
-            共享数据库
-            </summary>
-        </member>
-        <member name="F:Admin.IdentityServer.Configs.TenantDbType.Own">
-            <summary>
-            独立数据库
+            数据隔离
             </summary>
         </member>
         <member name="P:Admin.IdentityServer.Configs.AppSettings.Urls">
@@ -100,7 +85,7 @@
             健康检查
             </summary>
         </member>
-        <member name="P:Admin.IdentityServer.Configs.AppSettings.TenantDbType">
+        <member name="P:Admin.IdentityServer.Configs.AppSettings.Tenant">
             <summary>
             租户类型
             </summary>
@@ -173,6 +158,31 @@
         <member name="P:Admin.IdentityServer.Configs.AdminUI.AccessTokenLifetime">
             <summary>
             token有效时间
+            </summary>
+        </member>
+        <member name="T:Admin.IdentityServer.Domain.Admin.DataIsolationType">
+            <summary>
+            数据隔离类型
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Domain.Admin.DataIsolationType.OwnDb">
+            <summary>
+            独立数据库
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Domain.Admin.DataIsolationType.OwnDt">
+            <summary>
+            独立数据表
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Domain.Admin.DataIsolationType.Schema">
+            <summary>
+            共享数据库，独立架构
+            </summary>
+        </member>
+        <member name="F:Admin.IdentityServer.Domain.Admin.DataIsolationType.Share">
+            <summary>
+            共享数据库
             </summary>
         </member>
         <member name="T:Admin.IdentityServer.Domain.Admin.LogAbstract">
@@ -288,6 +298,11 @@
         <member name="P:Admin.IdentityServer.Domain.Admin.TenantEntity.TenantType">
             <summary>
             租户类型
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Domain.Admin.TenantEntity.DataIsolationType">
+            <summary>
+            数据隔离类型
             </summary>
         </member>
         <member name="P:Admin.IdentityServer.Domain.Admin.TenantEntity.DbType">

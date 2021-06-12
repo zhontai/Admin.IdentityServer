@@ -66,6 +66,11 @@ namespace Admin.IdentityServer.Domain.Admin
         public TenantType? TenantType { get; set; } = Admin.TenantType.Tenant;
 
         /// <summary>
+        /// 数据隔离类型
+        /// </summary>
+        public DataIsolationType DataIsolationType { get; set; } = DataIsolationType.OwnDb;
+
+        /// <summary>
         /// 数据库
         /// </summary>
         [Column(MapType = typeof(int))]
