@@ -89,3 +89,24 @@ $("#btnLogin").click(function () {
 
     return false;
 });
+
+var userDefaults = {
+    plat: {
+        userName: 'user',
+        password: '111111'
+    },
+    tenant: {
+        userName: '18988889999',
+        password: '111111'
+    }
+};
+$(".my-radio-group .my-radio-button__inner").click(function () {
+    $(".my-radio-group .my-radio-button__inner.active").removeClass('active');
+    $(this).addClass("active");
+    var userType = $(this).data("type");
+    var user = userDefaults[userType];
+    if (user) {
+        $("#userName").val(user.userName);
+        $("#password").val(user.password);
+    }
+});

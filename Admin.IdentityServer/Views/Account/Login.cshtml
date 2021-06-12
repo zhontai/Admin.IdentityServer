@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>登录-中台admin</title>
-    <link rel="stylesheet" href="~/css/is4.min.css?v=1.1.1" />
+    <link rel="stylesheet" href="~/css/is4.min.css?v=1.2.1.6" />
 </head>
 <body class="is4">
     <div class="header">
@@ -31,6 +31,10 @@
             <div class="col-sm-6">
                 <form asp-route="Login">
                     <div class="my-alert my-alert--error is-light"></div>
+                    <div class="row my-radio-group">
+                        <div class="col-6 my-radio-button__inner active" data-type="plat">平台用户</div>
+                        <div class="col-6 my-radio-button__inner"  data-type="tenant">企业租户</div>
+                    </div>
                     <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
                     <div class="form-group">
                         <label>用户名：</label>

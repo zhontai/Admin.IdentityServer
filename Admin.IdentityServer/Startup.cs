@@ -35,7 +35,7 @@ namespace Admin.IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             //界面即时编译，Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
-            //services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             //雪花漂移算法
             YitIdHelper.SetIdGenerator(new IdGeneratorOptions(1) { WorkerIdBitLength = 6 });
