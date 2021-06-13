@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using Admin.IdentityServer.Domain.Admin;
+using Admin.IdentityServer.Utils;
+using FreeSql;
 using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
-using FreeSql;
-using Admin.IdentityServer.Utils;
-using Admin.IdentityServer.Domain.Admin;
+using System.Threading.Tasks;
 
 namespace Admin.IdentityServer.Account
 {

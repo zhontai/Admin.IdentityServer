@@ -1,6 +1,6 @@
-using System;
 using FreeSql;
 using FreeSql.DataAnnotations;
+using System;
 
 namespace Admin.IdentityServer.Domain.Admin
 {
@@ -40,7 +40,7 @@ namespace Admin.IdentityServer.Domain.Admin
         /// 手机号码
         /// </summary>
         [Column(StringLength = 20)]
-        public string  Phone { get; set; }
+        public string Phone { get; set; }
 
         /// <summary>
         /// 邮箱地址
@@ -98,5 +98,4 @@ namespace Admin.IdentityServer.Domain.Admin
         [Column(StringLength = 500)]
         public string Description { get; set; }
     }
-
 }

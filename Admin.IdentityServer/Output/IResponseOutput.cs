@@ -16,7 +16,7 @@ namespace Admin.IdentityServer.Output
         /// <summary>
         /// 消息
         /// </summary>
-        public string Msg { get;}
+        public string Msg { get; }
     }
 
     /// <summary>

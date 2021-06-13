@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Admin.IdentityServer.Configs;
+using Admin.IdentityServer.Domain.Admin;
+using FreeSql;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
-using FreeSql;
-using Admin.IdentityServer.Domain.Admin;
-using Admin.IdentityServer.Configs;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Admin.IdentityServer.Account
 {
@@ -20,7 +20,7 @@ namespace Admin.IdentityServer.Account
         private readonly AppSettings _appSettings;
 
         public AdminProfileService(
-            ILogger<AdminProfileService> logger, 
+            ILogger<AdminProfileService> logger,
             IBaseRepository<UserEntity> userRepository,
             IBaseRepository<TenantEntity> tenantRepository,
             AppSettings appSettings
@@ -42,15 +42,13 @@ namespace Admin.IdentityServer.Account
             var sub = context.Subject?.GetSubjectId();
             if (sub == null) throw new Exception("用户Id为空");
 
-            var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => new { a.UserName, a.NickName,a.TenantId });
+            var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => new { a.UserName, a.NickName, a.TenantId });
             if (user == null)
             {
                 _logger?.LogWarning("用户{0}不存在", sub);
             }
             else
             {
-               
-
                 var claims = new List<Claim>()
                 {
                     new Claim(ClaimAttributes.UserName, user.UserName ?? ""),
@@ -83,6 +81,5 @@ namespace Admin.IdentityServer.Account
             var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => new { a.Status });
             context.IsActive = user?.Status == 0;
         }
-
     }
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Admin.IdentityServer.Domain.Admin
+﻿namespace Admin.IdentityServer.Domain.Admin
 {
     /// <summary>
     /// 租户类型
@@ -10,6 +9,7 @@ namespace Admin.IdentityServer.Domain.Admin
         /// 平台
         /// </summary>
         Platform = 1,
+
         /// <summary>
         /// 租户
         /// </summary>

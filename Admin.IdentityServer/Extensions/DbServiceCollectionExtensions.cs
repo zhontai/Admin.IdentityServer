@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
-using FreeSql;
+﻿using Admin.IdentityServer.Configs;
 using Admin.IdentityServer.Domain;
-using Admin.IdentityServer.Configs;
+using FreeSql;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Admin.IdentityServer
 {
@@ -17,6 +17,7 @@ namespace Admin.IdentityServer
         public static IServiceCollection AddDb(this IServiceCollection services, AppSettings appSettings)
         {
             #region FreeSql
+
             var freeSqlBuilder = new FreeSqlBuilder()
                     .UseConnectionString(appSettings.Db.Type, appSettings.Db.ConnectionString)
                     .UseAutoSyncStructure(false)
@@ -35,7 +36,8 @@ namespace Admin.IdentityServer
                     Console.WriteLine($"{e.Sql}\r\n");
                 };
             }
-            #endregion
+
+            #endregion FreeSql
 
             return services;
         }

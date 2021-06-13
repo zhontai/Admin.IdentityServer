@@ -1,5 +1,4 @@
-﻿
-namespace Admin.IdentityServer.Domain
+﻿namespace Admin.IdentityServer.Domain
 {
     public interface IEntitySoftDelete
     {

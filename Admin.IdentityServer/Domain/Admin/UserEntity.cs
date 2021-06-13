@@ -1,5 +1,5 @@
-using System;
 using FreeSql.DataAnnotations;
+using System;
 
 namespace Admin.IdentityServer.Domain.Admin
 {
@@ -8,7 +8,7 @@ namespace Admin.IdentityServer.Domain.Admin
     /// </summary>
 	[Table(Name = "ad_user")]
     [Index("idx_{tablename}_01", nameof(UserName) + "," + nameof(TenantId), true)]
-    public class UserEntity: EntityBase
+    public class UserEntity : EntityBase
     {
         /// <summary>
         /// 租户Id
@@ -37,7 +37,7 @@ namespace Admin.IdentityServer.Domain.Admin
         /// <summary>
         /// 头像
         /// </summary>
-       [Column(StringLength = 100)]
+        [Column(StringLength = 100)]
         public string Avatar { get; set; }
 
         /// <summary>

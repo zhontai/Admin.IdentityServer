@@ -1,23 +1,22 @@
-using System;
-using System.Linq;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using IdentityModel;
-using IdentityServer4;
-using IdentityServer4.Events;
-using IdentityServer4.Extensions;
-using IdentityServer4.Services;
-using IdentityServer4.Stores;
-using FreeSql;
 using Admin.IdentityServer.Configs;
 using Admin.IdentityServer.Domain.Admin;
 using Admin.IdentityServer.Input;
 using Admin.IdentityServer.Models;
 using Admin.IdentityServer.Output;
 using Admin.IdentityServer.Utils;
+using FreeSql;
+using IdentityModel;
+using IdentityServer4;
+using IdentityServer4.Events;
+using IdentityServer4.Extensions;
+using IdentityServer4.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
 namespace Admin.IdentityServer
@@ -58,13 +57,12 @@ namespace Admin.IdentityServer
         [Route("user/login")]
         public IActionResult Login(string returnUrl)
         {
-            returnUrl = returnUrl ?? _appSettings.AdminUI.RedirectUris.First().Replace("/callback","");
+            returnUrl = returnUrl ?? _appSettings.AdminUI.RedirectUris.First().Replace("/callback", "");
             var loginViewModal = new LoginInput { ReturnUrl = returnUrl };
 
             return View(loginViewModal);
         }
 
-        
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("user/login")]
@@ -79,7 +77,7 @@ namespace Admin.IdentityServer
             sw.Start();
 
             var context = await _interaction.GetAuthorizationContextAsync(input.ReturnUrl);
-             
+
             var user = await _userRepository.Select.Where(a => a.UserName == input.UserName)
                 .ToOneAsync(a => new { a.Id, a.Password, a.NickName, a.TenantId });
 
@@ -93,7 +91,6 @@ namespace Admin.IdentityServer
             {
                 return ResponseOutput.NotOk("", 2);
             }
-
 
             AuthenticationProperties props = null;
             if (input.RememberLogin)
@@ -144,10 +141,9 @@ namespace Admin.IdentityServer
                 entity.Device = device;
                 entity.BrowserInfo = ua;
             }
-            
+
             await _loginLogRepository.InsertAsync(entity);
         }
-
 
         [HttpGet]
         [Route("user/logout")]
@@ -258,6 +254,5 @@ namespace Admin.IdentityServer
 
             return vm;
         }
-
     }
 }

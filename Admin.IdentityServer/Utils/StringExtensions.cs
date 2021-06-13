@@ -99,6 +99,7 @@ namespace Admin.IdentityServer
         }
 
         #region ==字节转换==
+
         /// <summary>
         /// 转换为16进制
         /// </summary>
@@ -153,6 +154,6 @@ namespace Admin.IdentityServer
             return Convert.ToBase64String(bytes);
         }
 
-        #endregion
+        #endregion ==字节转换==
     }
 }

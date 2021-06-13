@@ -19,6 +19,5 @@ namespace Admin.IdentityServer.Domain
 
     public class Entity : Entity<long>
     {
-
     }
 }

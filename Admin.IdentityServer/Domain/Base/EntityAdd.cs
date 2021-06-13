@@ -1,7 +1,7 @@
-﻿using System;
+﻿using FreeSql.DataAnnotations;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using FreeSql.DataAnnotations;
 
 namespace Admin.IdentityServer.Domain
 {
@@ -34,6 +34,5 @@ namespace Admin.IdentityServer.Domain
 
     public class EntityAdd : EntityAdd<long>
     {
-
     }
 }

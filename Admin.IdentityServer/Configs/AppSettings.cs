@@ -1,5 +1,4 @@
-﻿
-using FreeSql;
+﻿using FreeSql;
 
 namespace Admin.IdentityServer.Configs
 {
@@ -55,7 +54,7 @@ namespace Admin.IdentityServer.Configs
         /// 地址
         /// </summary>
         public string Path { get; set; }
-        
+
         /// <summary>
         /// 密码
         /// </summary>

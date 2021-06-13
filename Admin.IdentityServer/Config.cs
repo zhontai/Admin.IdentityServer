@@ -50,12 +50,12 @@ namespace Admin.IdentityServer
                     AllowAccessTokensViaBrowser = true,
                     AccessTokenLifetime = 3600 * 2, //2小时 = 3600 * 2
                     //SlidingRefreshTokenLifetime = 3600 * 24, //1天 = 3600 * 24
-                    RedirectUris = 
+                    RedirectUris =
                     {
                         "http://localhost:8000/oauth2-redirect.html",
                     },
-                    PostLogoutRedirectUris = 
-                    { 
+                    PostLogoutRedirectUris =
+                    {
                         $"http://localhost:8000"
                     },
                     AllowedCorsOrigins = appSettings.CorUrls,

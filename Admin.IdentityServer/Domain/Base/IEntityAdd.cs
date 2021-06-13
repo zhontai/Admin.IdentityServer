@@ -2,7 +2,7 @@
 
 namespace Admin.IdentityServer.Domain
 {
-    public interface IEntityAdd<TKey> where TKey: struct
+    public interface IEntityAdd<TKey> where TKey : struct
     {
         TKey? CreatedUserId { get; set; }
         string CreatedUserName { get; set; }
