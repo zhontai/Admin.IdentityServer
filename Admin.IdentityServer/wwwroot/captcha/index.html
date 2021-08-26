@@ -61,7 +61,7 @@
 			// 初始化验证码  嵌入式
         	$('#mpanel1').slideVerify({
                 baseUrl:'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
-				mode:'fixed',
+				mode:'embed',
 				imgSize : {       //图片的大小对象
 		        	width: '310px',
 		        	height: '155px',
@@ -83,8 +83,8 @@
 			// // 初始化验证码  弹出式
 			$('#mpanel2').slideVerify({
 				baseUrl:'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
-				mode:'pop',     //展示模式
-				containerId:'btn',//pop模式 必填 被点击之后出现行为验证码的元素id
+				mode:'popup',     //展示模式
+				containerId:'btn',//popup模式 必填 被点击之后出现行为验证码的元素id
 				imgSize : {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
 					width: '310px',
 					height: '155px',
@@ -93,7 +93,7 @@
 					width: '310px',
 					height: '40px',
 				},
-				beforeCheck:function(){  //检验参数合法性的函数  mode ="pop"有效
+				beforeCheck:function(){  //检验参数合法性的函数  mode ="popup"有效
 					var flag = true;
 					//实现: 参数合法性的判断逻辑, 返回一个boolean值
 					return flag
@@ -109,7 +109,7 @@
 			// 初始化验证码  嵌入式
 			$('#mpanel3').pointsVerify({
 				baseUrl:'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
-				mode:'fixed',
+				mode:'embed',
 		    	imgSize : {
 		        	width: '500px',
 		        	height: '255px',
@@ -126,8 +126,8 @@
 			// // 初始化验证码  弹出式
 		    $('#mpanel4').pointsVerify({
 				baseUrl:'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
-				containerId:'btn2', // pop模式 必填 被点击之后出现行为验证码的元素id
-				mode:'pop',
+				containerId:'btn2', // popup模式 必填 被点击之后出现行为验证码的元素id
+				mode:'popup',
 				imgSize : {       //图片的大小对象
 		        	width: '310px',
 		        	height: '155px',
