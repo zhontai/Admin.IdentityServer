@@ -48,7 +48,7 @@ $(function () {
 
     // 滑块验证
     $('#content').slideVerify({
-        baseUrl: 'http://localhost:8000',  //服务器请求地址, 默认地址为安吉服务器;
+        baseUrl: 'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
         containerId: '#btnLogin',//popup模式 必填 被点击之后出现行为验证码的元素id
         mode: 'popup',     //展示模式 embed popup
         imgSize: {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略

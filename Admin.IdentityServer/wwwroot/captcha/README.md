@@ -21,7 +21,7 @@
 
 <script> 
     $('#content').slideVerify({
-        baseUrl:'https://captcha.anji-plus.com/captcha-api',  //服务器请求地址, 默认地址为安吉服务器;
+        baseUrl:'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
         containerId:'btn',//pop模式 必填 被点击之后出现行为验证码的元素id
         mode:'pop',     //展示模式
         imgSize : {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
@@ -61,7 +61,7 @@
 
 |  参数 | 类型 |  说明 |
 | ------------ | ------------ | ------------ |
-| baseUrl  | String | 请求后端的服务器地址,默认:'https://captcha.anji-plus.com/captcha-api' 安吉服务器地址 |
+| baseUrl  | String | 请求后端的服务器地址,默认:'http://localhost:8000'  Api服务器地址 |
 | mode  | String | 验证码的显示方式，弹出式pop，固定fixed，默认：mode : ‘pop’  |
 | containerId  | String |mode="pop" 模式必填,被点击之后出现行为验证码的元素id  |
 | vSpace  | String | 验证码图片和移动条容器的间隔，默认单位是px。如：间隔为5px，默认:vSpace:5  |
