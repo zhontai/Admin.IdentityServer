@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>登录-中台admin</title>
-    <link rel="stylesheet" href="~/css/is4.min.css?v=1.2.0" />
+    <link rel="stylesheet" href="~/captcha/css/verify.css?v=@(DateTime.Now.Ticks)" />
+    <link rel="stylesheet" href="~/css/is4.min.css?v=@(DateTime.Now.Ticks)" />
 </head>
 <body class="is4">
     <div class="header">
@@ -33,7 +34,7 @@
                     <div class="my-alert my-alert--error is-light"></div>
                     <div class="row my-radio-group">
                         <div class="col-6 my-radio-button__inner active" data-value="plat">平台用户</div>
-                        <div class="col-6 my-radio-button__inner"  data-value="tenant">企业租户</div>
+                        <div class="col-6 my-radio-button__inner" data-value="tenant">企业租户</div>
                     </div>
                     <input id="returnUrl" type="hidden" asp-for="ReturnUrl" />
                     <div class="form-group">
@@ -46,12 +47,16 @@
                         <input class="form-control" type="password" id="password" placeholder="密码" asp-for="Password" autocomplete="off" value="111111">
                         <span class="text-danger field-validation-error" id="lblPassword">请输入密码</span>
                     </div>
+                    <div class="form-group">
+                        <div id="content"></div>
+                    </div>
                     <div class="form-group login-remember">
                         <label for="rememberLogin">
                             <input id="rememberLogin" asp-for="RememberLogin">
                             <strong>记住我</strong>
                         </label>
                     </div>
+
                     <div class="form-group">
                         <button id="btnLogin" class="btn" name="button" value="login">登&nbsp;&nbsp;录</button>
                     </div>
@@ -64,7 +69,11 @@
         © 2020 All Rights Reserved. zhontai
     </div>
 
+    @*<script src="~/html/js/jquery.min.js"></script>*@
     <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/is4.min.js?v=1.2.0"></script>
+    <script src="~/captcha/js/ase.js?v=1.2.1"></script>
+    <script src="~/captcha/js/crypto-js.js?v=1.2.1"></script>
+    <script src="~/captcha/js/verify.js?v=@(DateTime.Now.Ticks)"></script>
+    <script src="~/js/is4.min.js?v==@(DateTime.Now.Ticks)"></script>
 </body>
 </html>
