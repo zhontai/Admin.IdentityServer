@@ -1,4 +1,7 @@
 $(function () {
+    //滑块验证方式 弹出式popup，嵌入式embed，悬浮hover
+    var mode = 'embed';
+
     //获取输入参数
     function getInput() {
         var input = {
@@ -10,6 +13,21 @@ $(function () {
         }
         return input;
     }
+
+    var timmerId = null;
+    //显示消息
+    function showMsg(msg) {
+        if (msg) {
+            $(".my-alert:first").show().text(msg);
+            if (timmerId) {
+                clearTimeout(timmerId);
+            }
+            timmerId = window.setTimeout(function () {
+                $(".my-alert:first").hide().text('');
+            }, 3000);
+        }
+    }
+
     //验证登录信息
     function validate() {
         var $userName = $("#userName");
@@ -25,6 +43,15 @@ $(function () {
             $("#lblPassword").show();
             return false;
         }
+
+        if (mode != 'popup') {
+            var captcha = slideVerify ? slideVerify.getData() : null;
+            if (captcha == null) {
+                showMsg('请向右拖动滑块填充拼图！');
+                return false;
+            }
+        }
+
         return true;
     }
     //用户名检查
@@ -45,12 +72,11 @@ $(function () {
     });
 
     var width = $('.form-group:first').width() + 'px';
-
     // 滑块验证
-    $('#content').slideVerify({
+    var slideVerify = $('#content').slideVerify({
         baseUrl: 'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
         containerId: '#btnLogin',//popup模式 必填 被点击之后出现行为验证码的元素id
-        mode: 'embed',     //展示模式 embed popup
+        mode: mode,     //展示模式 embed popup
         imgSize: {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
             width: width,
             height: '155px',
@@ -70,52 +96,55 @@ $(function () {
         ready: function () { },  //加载完毕的回调
         success: function (params) { //成功的回调
             // params为返回的二次验证参数 需要在接下来的实现逻辑回传服务器
-            var $me = $("#btnLogin");
-            $me.prop('disabled', true).addClass('is-disabled').text('登录中...');
-            var input = getInput();
-            var timmerId = null;
-            input.captcha = params
-            $.post('/user/login', input, function (res) {
-                if (!res) {
-                    $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
-                    return;
-                }
-                if (res.code === 1) {
-                    var returnUrl = $.trim($("#returnUrl").val());
-                    if (returnUrl) {
-                        window.location.href = returnUrl;
-                    }
-                } else {
-                    if (slideVerify) {
-                        slideVerify.refresh();
-                    }
-                    
-                    $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
-                    var msg = res.msg;
-                    if (res.data === 1) {
-                        msg = '您的账号输入不正确，请重新输入';
-                        $("#userName").focus();
-                    } else if (res.data === 2) {
-                        msg = '您的密码输入不正确，请重新输入';
-                        $("#password").focus();
-                    }
-                    if (msg) {
-                        $(".my-alert:first").show().text(msg);
-                        if (timmerId) {
-                            clearTimeout(timmerId);
-                        }
-                        timmerId = window.setTimeout(function () {
-                            $(".my-alert:first").hide().text('');
-                        }, 3000);
-                    }
-                }
-            });
+            if (mode == 'popup') {
+                login();
+            }
         },
         error: function () { }        //失败的回调
     });
 
+    function login() {
+        var isValid = validate();
+        if (!isValid) {
+            return false;
+        }
+
+        var $me = $("#btnLogin");
+        $me.prop('disabled', true).addClass('is-disabled').text('登录中...');
+        var input = getInput();
+        input.captcha = slideVerify.getData()
+        $.post('/user/login', input, function (res) {
+            if (!res) {
+                $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
+                return;
+            }
+            if (res.code === 1) {
+                var returnUrl = $.trim($("#returnUrl").val());
+                if (returnUrl) {
+                    window.location.href = returnUrl;
+                }
+            } else {
+                slideVerify && slideVerify.refresh();
+
+                $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
+                var msg = res.msg;
+                if (res.data === 1) {
+                    msg = '您的账号输入不正确，请重新输入';
+                    $("#userName").focus();
+                } else if (res.data === 2) {
+                    msg = '您的密码输入不正确，请重新输入';
+                    $("#password").focus();
+                }
+                showMsg(msg);
+            }
+        });
+    }
+
     //登录
     $("#btnLogin").click(function () {
+        if (mode != 'popup') {
+            login();
+        }
         return false;
     });
 

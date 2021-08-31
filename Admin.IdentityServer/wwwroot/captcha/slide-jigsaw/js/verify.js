@@ -83,6 +83,7 @@
 		this.backToken = null,
 		this.moveLeftDistance = 0,
 		this.secretKey = '',
+		this.data = null,
         this.defaults = {
 			baseUrl:"http://localhost:8000",
 			containerId:'',
@@ -344,17 +345,17 @@
 				}
 
 				this.moveLeftDistance = parseInt(this.moveLeftDistance * 310 / parseInt(this.setSize.img_width))
-				
+
 
 				//图片滑动
 				var data = {
-					captchaType:this.options.captchaType,
-					"data": this.secretKey ? aesEncrypt(JSON.stringify({x:this.moveLeftDistance}),this.secretKey):JSON.stringify({x:this.moveLeftDistance}),
-					"token":this.backToken,
-					clientUid: localStorage.getItem('slider'), 
+					captchaType: this.options.captchaType,
+					"data": this.secretKey ? aesEncrypt(JSON.stringify({ x: this.moveLeftDistance }), this.secretKey) : JSON.stringify({ x: this.moveLeftDistance }),
+					"token": this.backToken,
+					clientUid: localStorage.getItem('slider'),
 					ts: Date.now()
 				}
-				checkPictrue(data,this.options.baseUrl,function(res){
+				checkPictrue(data, this.options.baseUrl, function (res) {
 					// 请求反正成功的判断
 					if (res.code == 1) {
 						_this.htmlDoms.bar_area.removeClass('verify-bar-area--moving');
@@ -365,17 +366,19 @@
 						//提示框
 						_this.htmlDoms.tips.addClass('suc-bg').removeClass('err-bg')
 						// _this.htmlDoms.tips.css({"display":"block",animation:"move 1s cubic-bezier(0, 0, 0.39, 1.01)"});
-						_this.htmlDoms.tips.animate({"bottom":"0px"});
-						_this.htmlDoms.tips.text(((_this.endMovetime-_this.startMoveTime)/1000).toFixed(2) + 's验证成功');
+						_this.htmlDoms.tips.animate({ "bottom": "0px" });
+						_this.htmlDoms.tips.text(((_this.endMovetime - _this.startMoveTime) / 1000).toFixed(2) + 's验证成功');
 						_this.isEnd = true;
-						setTimeout(function(){
-							_this.$element.find(".mask").css("display","none");
+						setTimeout(function () {
+							_this.$element.find(".mask").css("display", "none");
 							// _this.htmlDoms.tips.css({"display":"none",animation:"none"});
-							_this.htmlDoms.tips.animate({"bottom":"-35px"});
+							_this.htmlDoms.tips.animate({ "bottom": "-35px" });
 							//_this.refresh();
-						},1000)
+						}, 1000)
+						_this.data = data;
 						_this.options.success(data);
-					}else{
+					} else {
+						this.data = null;
 						_this.htmlDoms.icon.removeClass('icon-right');
 						_this.htmlDoms.icon.addClass('icon-close');
 						_this.htmlDoms.bar_area.removeClass('verify-bar-area--moving');
@@ -387,9 +390,9 @@
 						_this.htmlDoms.tips.animate({"bottom":"0px"});
 						_this.htmlDoms.tips.text(res.repMsg)
 						*/
-						setTimeout(function () { 
+						setTimeout(function () {
 							_this.refresh();
-							_this.htmlDoms.tips.animate({"bottom":"-35px"});
+							_this.htmlDoms.tips.animate({ "bottom": "-35px" });
 						}, 1000);
 
 						// setTimeout(function () {
@@ -458,7 +461,8 @@
        	},
 
         //刷新
-        refresh: function() {
+		refresh: function () {
+			this.data = null;
 			var _this = this;
         	this.htmlDoms.refresh.show();
         	this.$element.find('.verify-msg:eq(1)').text('');
@@ -490,7 +494,11 @@
 					}
 			});
 			this.htmlDoms.sub_block.css('left', "0px");
-        },
+		},
+
+		getData: function () {
+			return this.data;
+        }
     };
 
 
@@ -733,6 +741,8 @@
 		} else if (slide.options.mode == "hover") {
 			slide.init();
 		}
+
+		return slide;
     };
     
     //在插件中使用clickVerify对象
@@ -743,6 +753,7 @@
 		} else if (points.options.mode =="embed") {
 			points.init();
 		}
+		return points;
     };
    
 })(jQuery, window, document);

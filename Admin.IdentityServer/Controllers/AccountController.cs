@@ -99,6 +99,11 @@ namespace Admin.IdentityServer
                 return ResponseOutput.NotOk(ModelState.Values.First().Errors[0].ErrorMessage);
             }
 
+            if(input.Captcha == null)
+            {
+                return ResponseOutput.NotOk("请完成安全验证！");
+            }
+
             //滑动验证
             input.Captcha.DeleteCache = true;
             using var client = new HttpClient();
