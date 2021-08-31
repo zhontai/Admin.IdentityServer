@@ -1,6 +1,3 @@
-/*! Verify&admin MIT License by anji-plus*/
-/*! J2eeFAST 优化兼容IE浏览器*/
-
 ;(function($, window, document,undefined) {
 
 	  // 初始话 uuid 

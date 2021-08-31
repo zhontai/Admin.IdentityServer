@@ -11,7 +11,7 @@
 准备初始化的容器,以及id值
 
      <div id="content"></div>
-    //  mode="pop"模式配置点击
+    //  mode="popup"模式配置点击
      <button id="btn">点击出现验证码</button>
        
 滑动式调用$('#content').slideVerify(option)初始化; 
@@ -21,9 +21,9 @@
 
 <script> 
     $('#content').slideVerify({
-        baseUrl:'https://captcha.anji-plus.com/captcha-api',  //服务器请求地址, 默认地址为安吉服务器;
-        containerId:'btn',//pop模式 必填 被点击之后出现行为验证码的元素id
-        mode:'pop',     //展示模式
+        baseUrl:'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
+        containerId:'btn',//popup模式 必填 被点击之后出现行为验证码的元素id
+        mode:'popup',     //展示模式
         imgSize : {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
             width: '400px',
             height: '200px',
@@ -32,7 +32,7 @@
             width: '400px',
             height: '40px',
         },
-        beforeCheck:function(){  //检验参数合法性的函数  mode ="pop"有效
+        beforeCheck:function(){  //检验参数合法性的函数  mode ="popup"有效
             let flag = true;
             //实现: 参数合法性的判断逻辑, 返回一个boolean值
             return flag
@@ -54,16 +54,16 @@
 | success(params)  |  funciton | 验证码匹配成功后的回调函数,params为返回需回传服务器的二次验证参数  |
 | error  |  funciton | 验证码匹配失败后的回调函数  |
 | ready  |  funciton |  验证码初始化成功的回调函数 |
-| beforeCheck  |  funciton |mode="pop"模式有效, 调用验证码前检验参数合法性的函数,返回值为boolean值,默认返回ture |
+| beforeCheck  |  funciton |mode="popup"模式有效, 调用验证码前检验参数合法性的函数,返回值为boolean值,默认返回ture |
 
 
 ### 3.验证码参数
 
 |  参数 | 类型 |  说明 |
 | ------------ | ------------ | ------------ |
-| baseUrl  | String | 请求后端的服务器地址,默认:'https://captcha.anji-plus.com/captcha-api' 安吉服务器地址 |
-| mode  | String | 验证码的显示方式，弹出式pop，固定fixed，默认：mode : ‘pop’  |
-| containerId  | String |mode="pop" 模式必填,被点击之后出现行为验证码的元素id  |
+| baseUrl  | String | 请求后端的服务器地址,默认:'http://localhost:8000'  Api服务器地址 |
+| mode  | String | 验证码的显示方式，弹出式popup，固定embed，悬浮hover，默认：mode : ‘popup’  |
+| containerId  | String |mode="popup" 模式必填,被点击之后出现行为验证码的元素id  |
 | vSpace  | String | 验证码图片和移动条容器的间隔，默认单位是px。如：间隔为5px，默认:vSpace:5  |
 | explain  | String |  滑动条内的提示，不设置默认是：'向右滑动完成验证' |
 | imgSize | Object |  其中包含了width、height两个参数，分别代表图片的宽度和高度，如:{width:'400px',height:'200px'} 
