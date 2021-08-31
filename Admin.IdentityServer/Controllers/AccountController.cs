@@ -13,9 +13,14 @@ using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Yitter.IdGenerator;
 
@@ -63,6 +68,27 @@ namespace Admin.IdentityServer
             return View(loginViewModal);
         }
 
+        private string ToParams(object source)
+        {
+            var stringBuilder = new StringBuilder(string.Empty);
+            if (source == null)
+            {
+                return "";
+            }
+
+            var entries = from PropertyDescriptor property in TypeDescriptor.GetProperties(source)
+                          let value = property.GetValue(source)
+                          where value != null
+                          select (property.Name, value);
+
+            foreach (var (name, value) in entries)
+            {
+                stringBuilder.Append(WebUtility.UrlEncode(name) + "=" + WebUtility.UrlEncode(value + "") + "&");
+            }
+
+            return stringBuilder.ToString().Trim('&');
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("user/login")]
@@ -72,6 +98,18 @@ namespace Admin.IdentityServer
             {
                 return ResponseOutput.NotOk(ModelState.Values.First().Errors[0].ErrorMessage);
             }
+
+            //滑动验证
+            input.Captcha.DeleteCache = true;
+            using var client = new HttpClient();
+            var res = await client.GetAsync($"http://localhost:8000/api/Admin/Auth/CheckCaptcha?{ToParams(input.Captcha)}");
+            var content = await res.Content.ReadAsStringAsync();
+            var captchaResult = JsonConvert.DeserializeObject<ResultModel<string>>(content);
+            if (!captchaResult.Success)
+            {
+                return ResponseOutput.NotOk("安全验证不通过，请重新登录！");
+            }
+
 
             var sw = new Stopwatch();
             sw.Start();

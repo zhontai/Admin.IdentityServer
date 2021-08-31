@@ -6,5 +6,10 @@
         public string UserName { get; set; }
         public string Password { get; set; }
         public bool RememberLogin { get; set; }
+
+        /// <summary>
+        /// 验证数据
+        /// </summary>
+        public CaptchaInput Captcha { get; set; }
     }
 }

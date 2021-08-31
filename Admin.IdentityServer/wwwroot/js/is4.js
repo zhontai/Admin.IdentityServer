@@ -1,7 +1,7 @@
 $(function () {
     //获取输入参数
     function getInput() {
-        const input = {
+        var input = {
             userName: $.trim($("#userName").val()),
             password: $.trim($("#password").val()),
             rememberLogin: !!$("#rememberLogin:checked").val(),
@@ -12,14 +12,14 @@ $(function () {
     }
     //验证登录信息
     function validate() {
-        const $userName = $("#userName");
+        var $userName = $("#userName");
         if ($.trim($userName.val()) === '') {
             $userName.focus();
             $("#lblUserName").show();
             return false;
         }
 
-        const $password = $("#password");
+        var $password = $("#password");
         if ($.trim($password.val()) === '') {
             $password.focus();
             $("#lblPassword").show();
@@ -47,10 +47,10 @@ $(function () {
     var width = $('.form-group:first').width() + 'px';
 
     // 滑块验证
-    $('#content').slideVerify({
+    var slideVerify = $('#content').slideVerify({
         baseUrl: 'http://localhost:8000',  //服务器请求地址, 默认地址为安吉服务器;
         containerId: '#btnLogin',//popup模式 必填 被点击之后出现行为验证码的元素id
-        mode: 'popup',     //展示模式 embed popup
+        mode: 'embed',     //展示模式 embed popup
         imgSize: {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
             width: width,
             height: '155px',
@@ -60,7 +60,7 @@ $(function () {
             height: '40px',
         },
         beforeCheck: function () {  //检验参数合法性的函数  mode ="pop"有效
-            const isValid = validate();
+            var isValid = validate();
             if (!isValid) {
                 return false;
             }
@@ -70,23 +70,28 @@ $(function () {
         ready: function () { },  //加载完毕的回调
         success: function (params) { //成功的回调
             // params为返回的二次验证参数 需要在接下来的实现逻辑回传服务器
-            const $me = $("#btnLogin");
+            var $me = $("#btnLogin");
             $me.prop('disabled', true).addClass('is-disabled').text('登录中...');
-            const input = getInput();
-            let timmerId = null;
+            var input = getInput();
+            var timmerId = null;
+            input.captcha = params
             $.post('/user/login', input, function (res) {
                 if (!res) {
                     $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
                     return;
                 }
                 if (res.code === 1) {
-                    const returnUrl = $.trim($("#returnUrl").val());
+                    var returnUrl = $.trim($("#returnUrl").val());
                     if (returnUrl) {
                         window.location.href = returnUrl;
                     }
                 } else {
+                    if (slideVerify) {
+                        slideVerify.refresh();
+                    }
+                    
                     $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
-                    let msg = '';
+                    var msg = res.msg;
                     if (res.data === 1) {
                         msg = '您的账号输入不正确，请重新输入';
                         $("#userName").focus();

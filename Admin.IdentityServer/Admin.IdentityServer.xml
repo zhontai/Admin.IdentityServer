@@ -468,6 +468,26 @@
             <param name="appSettings"></param>
             <returns></returns>
         </member>
+        <member name="P:Admin.IdentityServer.Input.CaptchaInput.Token">
+            <summary>
+            校验唯一标识
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.CaptchaInput.DeleteCache">
+            <summary>
+            删除缓存
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.CaptchaInput.Data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Input.LoginInput.Captcha">
+            <summary>
+            验证数据
+            </summary>
+        </member>
         <member name="T:Admin.IdentityServer.Input.LoginLogAddInput">
             <summary>
             添加
@@ -531,6 +551,26 @@
         <member name="P:Admin.IdentityServer.Input.LoginLogAddInput.CreatedUserName">
             <summary>
             创建者
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Models.ResultModel`1.Success">
+            <summary>
+            是否成功标记
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Models.ResultModel`1.Code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Models.ResultModel`1.Msg">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Admin.IdentityServer.Models.ResultModel`1.Data">
+            <summary>
+            数据
             </summary>
         </member>
         <member name="T:Admin.IdentityServer.Output.IResponseOutput">
