@@ -29,14 +29,14 @@
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
-    <None Include="wwwroot\captcha\fonts\iconfont.svg" />
-    <None Include="wwwroot\captcha\js\ase.js" />
-    <None Include="wwwroot\captcha\js\browser.js" />
-    <None Include="wwwroot\captcha\js\crypto-js.js" />
-    <None Include="wwwroot\captcha\js\jquery.min.js" />
-    <None Include="wwwroot\captcha\js\polyfill.min.js" />
-    <None Include="wwwroot\captcha\js\verify.js" />
-    <None Include="wwwroot\captcha\README.md" />
+    <None Include="wwwroot\captcha\slide-jigsaw\fonts\iconfont.svg" />
+    <None Include="wwwroot\captcha\slide-jigsaw\js\ase.js" />
+    <None Include="wwwroot\captcha\slide-jigsaw\js\browser.js" />
+    <None Include="wwwroot\captcha\slide-jigsaw\js\crypto-js.js" />
+    <None Include="wwwroot\captcha\slide-jigsaw\js\jquery.min.js" />
+    <None Include="wwwroot\captcha\slide-jigsaw\js\polyfill.min.js" />
+    <None Include="wwwroot\captcha\slide-jigsaw\js\verify.js" />
+    <None Include="wwwroot\captcha\slide-jigsaw\README.md" />
   </ItemGroup>
   
   <ItemGroup>
