@@ -1,6 +1,6 @@
 $(function () {
     //滑块验证方式 弹出式popup，嵌入式embed，悬浮hover
-    var mode = 'embed';
+    var mode = 'popup';
 
     //获取输入参数
     function getInput() {
@@ -74,7 +74,7 @@ $(function () {
     var width = $('.form-group:first').width() + 'px';
     // 滑块验证
     var slideVerify = $('#content').slideVerify({
-        baseUrl: 'http://localhost:8000',  //服务器请求地址, 默认地址为Api服务器;
+        baseUrl: 'https://admin.zhontai.net',  //服务器请求地址, 默认地址为Api服务器;
         containerId: '#btnLogin',//popup模式 必填 被点击之后出现行为验证码的元素id
         mode: mode,     //展示模式 embed popup
         imgSize: {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略

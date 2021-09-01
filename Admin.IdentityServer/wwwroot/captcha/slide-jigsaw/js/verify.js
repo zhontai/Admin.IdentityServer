@@ -130,7 +130,7 @@
         	if(this.options.mode == 'popup') {
 				_this.$element.find('.verifybox-close').on('click', function() {
 					_this.$element.find(".mask").css("display","none");
-					_this.refresh();
+					//_this.refresh();
 				});
 
 				$(this.options.containerId).click(function () {
@@ -356,7 +356,7 @@
 					ts: Date.now()
 				}
 				checkPictrue(data, this.options.baseUrl, function (res) {
-					// 请求反正成功的判断
+					// 请求检查成功的判断
 					if (res.code == 1) {
 						_this.htmlDoms.bar_area.removeClass('verify-bar-area--moving');
 						_this.htmlDoms.bar_area.addClass('verify-bar-area--success');
@@ -374,9 +374,9 @@
 							// _this.htmlDoms.tips.css({"display":"none",animation:"none"});
 							_this.htmlDoms.tips.animate({ "bottom": "-35px" });
 							//_this.refresh();
+							_this.options.success(data);
 						}, 1000)
 						_this.data = data;
-						_this.options.success(data);
 					} else {
 						this.data = null;
 						_this.htmlDoms.icon.removeClass('icon-right');
@@ -469,7 +469,7 @@
         	this.$element.find('.verify-msg:eq(1)').css('color', '#000');
         	this.htmlDoms.move_block.animate({'left':'0px'}, 'fast');
 			this.htmlDoms.left_bar.animate({'width': parseInt(this.setSize.bar_height)}, 'fast');
-			this.htmlDoms.bar_area.removeClass('verify-bar-area--moving verify-bar-area--error');
+			this.htmlDoms.bar_area.removeClass('verify-bar-area--moving verify-bar-area--error verify-bar-area--success');
 			this.htmlDoms.icon.removeClass('icon-close');
 			this.htmlDoms.icon.addClass('icon-right');
 			this.$element.find('.verify-msg:eq(0)').text(this.options.explain);
@@ -583,7 +583,7 @@
 								_this.$element.find('.verify-img-panel').unbind('click');
 								setTimeout(function(){
 									_this.$element.find(".mask").css("display","none");
-									_this.refresh();
+									//_this.refresh();
 								},1000)
 								_this.options.success({'captchaVerification':captchaVerification});
 							}else{

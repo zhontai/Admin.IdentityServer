@@ -39,6 +39,8 @@ namespace Admin.IdentityServer.Configs
         /// </summary>
         public Db Db { get; set; } = new Db();
 
+        public Captcha Captcha { get; set; } = new Captcha();
+
         /// <summary>
         /// Admin前端客户端
         /// </summary>
@@ -59,6 +61,11 @@ namespace Admin.IdentityServer.Configs
         /// 密码
         /// </summary>
         public string Password { get; set; }
+    }
+
+    public class Captcha
+    {
+        public string CheckUrl { get; set; }
     }
 
     /// <summary>

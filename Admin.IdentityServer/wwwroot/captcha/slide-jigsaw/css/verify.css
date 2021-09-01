@@ -103,7 +103,7 @@ html{
     height: 100vh;
     background: rgba(0,0,0,.3);
     /* display: none; */
-    transition: all .5s;
+    /*transition: all .5s;*/
     display: none;
 }
 

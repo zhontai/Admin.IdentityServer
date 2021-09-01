@@ -107,7 +107,7 @@ namespace Admin.IdentityServer
             //ª¨∂Ø—È÷§
             input.Captcha.DeleteCache = true;
             using var client = new HttpClient();
-            var res = await client.GetAsync($"http://localhost:8000/api/Admin/Auth/CheckCaptcha?{ToParams(input.Captcha)}");
+            var res = await client.GetAsync($"{_appSettings.Captcha.CheckUrl}?{ToParams(input.Captcha)}");
             var content = await res.Content.ReadAsStringAsync();
             var captchaResult = JsonConvert.DeserializeObject<ResultModel<string>>(content);
             if (!captchaResult.Success)
