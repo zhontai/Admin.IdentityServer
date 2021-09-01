@@ -286,7 +286,7 @@
 			this.startLeft = Math.floor(x - this.htmlDoms.bar_area[0].getBoundingClientRect().left);
 			this.startMoveTime = new Date().getTime();
 			if (this.isEnd == false) {
-				if (this.isMobile) {
+				if (this.isMobile && this.options.mode == 'hover') {
 					this.htmlDoms.out_panel.show();
 					var _this = this;
 					this.$element.off('mousedown.hover').on('mousedown.hover', function (e) {
