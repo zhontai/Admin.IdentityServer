@@ -1,6 +1,6 @@
 $(function () {
     //滑块验证方式 弹出式popup，嵌入式embed，悬浮hover
-    var mode = 'hover';
+    var mode = 'popup';
 
     //获取输入参数
     function getInput() {

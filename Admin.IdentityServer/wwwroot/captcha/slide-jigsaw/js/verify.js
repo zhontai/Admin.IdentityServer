@@ -140,16 +140,6 @@
 					return false;
 				});
 			}
-
-			if (this.options.mode == 'hover') {
-				this.$element.off('mouseenter').on('mouseenter', function () {
-					_this.htmlDoms.out_panel.show();
-				});
-
-				this.$element.off('mouseleave').on('mouseleave', function () {
-					_this.htmlDoms.out_panel.hide();
-				});
-			}
         	
 			//按下
         	this.htmlDoms.move_block.on('touchstart', function(e) {
@@ -186,8 +176,10 @@
             });
             
             //刷新
-            _this.$element.find('.verify-refresh').on('click', function() {
-				_this.refresh();
+			_this.$element.find('.verify-refresh').on('click', function () {
+				if (this.this.isEnd == false) {
+					_this.refresh();
+                }
 			});
         },
         
@@ -368,10 +360,18 @@
 						_this.htmlDoms.tips.animate({ "bottom": "0px" });
 						_this.htmlDoms.tips.text(((_this.endMovetime - _this.startMoveTime) / 1000).toFixed(2) + 's验证成功');
 						_this.isEnd = true;
+						if (_this.options.mode == 'hover') {
+							_this.$element.off('mouseenter');
+							_this.$element.off('mouseleave');
+						}
+						_this.htmlDoms.refresh.hide();
 						setTimeout(function () {
 							_this.$element.find(".mask").css("display", "none");
 							// _this.htmlDoms.tips.css({"display":"none",animation:"none"});
 							_this.htmlDoms.tips.animate({ "bottom": "-35px" });
+							if (_this.options.mode == 'hover') {
+								_this.htmlDoms.out_panel.hide();
+							}
 							//_this.refresh();
 							_this.options.success(data);
 						}, 1000)
@@ -492,6 +492,15 @@
 					}
 			});
 			this.htmlDoms.sub_block.css('left', "0px");
+			if (this.options.mode == 'hover') {
+				this.$element.off('mouseenter').on('mouseenter', function () {
+					_this.htmlDoms.out_panel.show();
+				});
+
+				this.$element.off('mouseleave').on('mouseleave', function () {
+					_this.htmlDoms.out_panel.hide();
+				});
+			}
 		},
 
 		getData: function () {
