@@ -169,19 +169,19 @@
             });
 
         	//拖动
-			$(window).on("touchmove", function(e) {
+			$(document).on("touchmove", function(e) {
             	_this.move(e);
             });
 
-            $(window).on("mousemove", function(e) {
+			$(document).on("mousemove", function(e) {
             	_this.move(e);
             });
             
-            //鼠标松开
-			$(window).on("touchend", function() {
+			//鼠标松开
+			$(document).on("touchend", function () {
             	_this.end();
             });
-			$(window).on("mouseup", function() {
+			$(document).on("mouseup", function() {
             	_this.end();
             });
             
@@ -297,7 +297,6 @@
 						$(document).off('mousedown.hover');
 					});
                 }
-	        	e.stopPropagation();
 	        	this.status = true;
 			}
         },
@@ -334,18 +333,18 @@
         },
         
         //鼠标松开
-        end: function() {
+		end: function () {
 			this.endMovetime = new Date().getTime();
 			var _this = this;
         	//判断是否重合
 			if (this.status && this.isEnd == false) {
+				this.status = false;
 				var moveLeftDistance = parseInt(this.moveLeftDistance)
 				if (!(moveLeftDistance > 0)) {
 					return
 				}
 
 				this.moveLeftDistance = parseInt(this.moveLeftDistance * 310 / parseInt(this.setSize.img_width))
-
 
 				//图片滑动
 				var data = {
@@ -402,7 +401,6 @@
 					}
 				})
 			}
-			this.status = false;
 		},
 		
         resetSize : function(obj) {
