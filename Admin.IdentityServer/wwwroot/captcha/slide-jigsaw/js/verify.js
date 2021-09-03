@@ -177,7 +177,7 @@
             
             //刷新
 			_this.$element.find('.verify-refresh').on('click', function () {
-				if (this.this.isEnd == false) {
+				if (_this.isEnd == false) {
 					_this.refresh();
                 }
 			});
