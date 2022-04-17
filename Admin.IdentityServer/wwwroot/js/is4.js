@@ -74,7 +74,8 @@ $(function () {
     var width = $('.form-group:first').width() + 'px';
     // 滑块验证
     var slideVerify = $('#content').slideVerify({
-        baseUrl: 'https://admin.zhontai.net',  //服务器请求地址, 默认地址为Api服务器;
+        //baseUrl: 'https://admin.zhontai.net',  //服务器请求地址, 默认地址为Api服务器;
+        baseUrl: 'http://localhost:8000',
         containerId: '#btnLogin',//popup模式 必填 被点击之后出现行为验证码的元素id
         mode: mode,     //展示模式 embed popup
         imgSize: {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略
@@ -100,7 +101,9 @@ $(function () {
                 login();
             }
         },
-        error: function () { }        //失败的回调
+        error: function () {
+
+        }        //失败的回调
     });
 
     function login() {
@@ -113,31 +116,43 @@ $(function () {
         $me.prop('disabled', true).addClass('is-disabled').text('登录中...');
         var input = getInput();
         input.captcha = slideVerify.getData()
-        $.post('/user/login', input, function (res) {
-            if (!res) {
-                $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
-                return;
-            }
-            if (res.code === 1) {
-                var returnUrl = $.trim($("#returnUrl").val());
-                if (returnUrl) {
-                    window.location.href = returnUrl;
-                }
-            } else {
-                slideVerify && slideVerify.refresh();
 
-                $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
-                var msg = res.msg;
-                if (res.data === 1) {
-                    msg = '您的账号输入不正确，请重新输入';
-                    $("#userName").focus();
-                } else if (res.data === 2) {
-                    msg = '您的密码输入不正确，请重新输入';
-                    $("#password").focus();
+        $.ajax({
+            type: "post",
+            url: '/user/login',
+            data: input,
+            cache: false,
+            success: function (res) {
+                debugger
+                if (!res) {
+                    $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
+                    return;
                 }
-                showMsg(msg);
+                if (res.code === 1) {
+                    var returnUrl = $.trim($("#returnUrl").val());
+                    if (returnUrl) {
+                        window.location.href = returnUrl;
+                    }
+                } else {
+                    slideVerify && slideVerify.refresh();
+
+                    $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
+                    var msg = res.msg;
+                    if (res.data === 1) {
+                        msg = '您的账号输入不正确，请重新输入';
+                        $("#userName").focus();
+                    } else if (res.data === 2) {
+                        msg = '您的密码输入不正确，请重新输入';
+                        $("#password").focus();
+                    }
+                    showMsg(msg);
+                }
+            },
+            fail: function (err) {
+                $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
+                showMsg('服务器异常');
             }
-        });
+        })
     }
 
     //登录

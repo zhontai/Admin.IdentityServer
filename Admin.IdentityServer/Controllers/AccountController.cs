@@ -34,7 +34,7 @@ namespace Admin.IdentityServer
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
         private readonly AppSettings _appSettings;
-        //private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
         //private readonly IPHelper _iPHelper;
 
         public AccountController(
@@ -42,8 +42,8 @@ namespace Admin.IdentityServer
             IBaseRepository<LoginLogEntity> loginLogRepository,
             IIdentityServerInteractionService interaction,
             IEventService events,
-            AppSettings appSettings
-            //IHttpClientFactory httpClientFactory,
+            AppSettings appSettings,
+            IHttpClientFactory httpClientFactory
             //IPHelper iPHelper
             )
         {
@@ -53,7 +53,7 @@ namespace Admin.IdentityServer
             _interaction = interaction;
             _events = events;
             _appSettings = appSettings;
-            //_httpClientFactory = httpClientFactory;
+            _httpClientFactory = httpClientFactory;
             //_iPHelper = iPHelper;
         }
 
@@ -106,14 +106,22 @@ namespace Admin.IdentityServer
 
             //滑动验证
             input.Captcha.DeleteCache = true;
-            using var client = new HttpClient();
+            var client = _httpClientFactory.CreateClient();
             var res = await client.GetAsync($"{_appSettings.Captcha.CheckUrl}?{ToParams(input.Captcha)}");
-            var content = await res.Content.ReadAsStringAsync();
-            var captchaResult = JsonConvert.DeserializeObject<ResultModel<string>>(content);
-            if (!captchaResult.Success)
+            if (res.IsSuccessStatusCode)
             {
-                return ResponseOutput.NotOk("安全验证不通过，请重新登录！");
+                var content = await res.Content.ReadAsStringAsync();
+                var captchaResult = JsonConvert.DeserializeObject<ResultModel<string>>(content);
+                if (captchaResult == null || !captchaResult.Success)
+                {
+                    return ResponseOutput.NotOk("安全验证不通过，请重新登录！");
+                }
             }
+            else
+            {
+                return ResponseOutput.NotOk(res.ReasonPhrase);
+            }
+            
 
 
             var sw = new Stopwatch();

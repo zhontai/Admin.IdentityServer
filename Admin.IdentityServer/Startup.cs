@@ -115,6 +115,8 @@ namespace Admin.IdentityServer
                 options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
             });
 
+            services.AddHttpClient();
+
             if (_env.IsDevelopment() || _appSettings.Swagger)
             {
                 services.AddSwaggerGen(options =>

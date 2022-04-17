@@ -47,7 +47,7 @@
 		$.ajax({
 			type : "get",
 			contentType: "application/json;charset=UTF-8",
-			url: baseUrl + "/api/Admin/Auth/GetCaptcha",
+			url: baseUrl + "/api/admin/auth/get-captcha",
 			data :JSON.stringify(data),
 			cache: false,
       crossDomain: true == !(document.all),
@@ -64,7 +64,7 @@
 		$.ajax({
 			type : "get",
 			contentType: "application/json;charset=UTF-8",
-			url: baseUrl + "/api/Admin/Auth/CheckCaptcha",
+			url: baseUrl + "/api/admin/auth/check-captcha",
 			data: data,
 			cache: false,
       crossDomain: true == !(document.all),
@@ -140,41 +140,14 @@
 					return false;
 				});
 			}
-        	
+
 			//按下
-        	this.htmlDoms.move_block.on('touchstart', function(e) {
-        		_this.start(e);
-        	});
-        	
-			this.htmlDoms.move_block.on('mousedown', function (e) {
-        		_this.start(e);
-        	});
+			this.htmlDoms.move_block.on('touchstart', _this.start.bind(_this));
+			this.htmlDoms.move_block.on('mousedown', _this.start.bind(_this));
 
-			this.htmlDoms.sub_block.on('touchstart', function (e) {
-				_this.start(e);
-			});
+			this.htmlDoms.sub_block.on('touchstart', _this.start.bind(_this));
+			this.htmlDoms.sub_block.on('mousedown', _this.start.bind(_this));
 
-            this.htmlDoms.sub_block.on('mousedown', function(e) {
-				_this.start(e);
-            });
-
-        	//拖动
-			$(document).on("touchmove", function(e) {
-            	_this.move(e);
-            });
-
-			$(document).on("mousemove", function(e) {
-            	_this.move(e);
-            });
-            
-			//鼠标松开
-			$(document).on("touchend", function () {
-            	_this.end();
-            });
-			$(document).on("mouseup", function() {
-            	_this.end();
-            });
-            
             //刷新
 			_this.$element.find('.verify-refresh').on('click', function () {
 				if (_this.isEnd == false) {
@@ -278,9 +251,9 @@
 			this.startLeft = Math.floor(x - this.htmlDoms.bar_area[0].getBoundingClientRect().left);
 			this.startMoveTime = new Date().getTime();
 			if (this.isEnd == false) {
+				var _this = this;
 				if (this.isMobile && this.options.mode == 'hover') {
 					this.htmlDoms.out_panel.show();
-					var _this = this;
 					this.$element.off('mousedown.hover').on('mousedown.hover', function (e) {
 						return false;
 					});
@@ -289,7 +262,14 @@
 						$(document).off('mousedown.hover');
 					});
                 }
-	        	this.status = true;
+				this.status = true;
+
+				//拖动
+				$(document).on("touchmove", _this.move.bind(_this));
+				$(document).on("mousemove", _this.move.bind(_this));
+				//鼠标松开
+				$(document).on("touchend", _this.end.bind(_this));
+				$(document).on("mouseup", _this.end.bind(_this));
 			}
         },
         
@@ -401,6 +381,11 @@
 					}
 				})
 			}
+			//取消事件
+			$(document).off("touchmove");
+			$(document).off("mousemove");
+			$(document).off("touchend");
+			$(document).off("mouseup");
 		},
 		
         resetSize : function(obj) {
@@ -629,7 +614,6 @@
     	
     	//加载页面
     	loadDom : function() {
-    		
     		this.fontPos = [];	//选中的坐标信息
     		this.checkPosArr = [];	//用户点击的坐标
     		this.num = 1;	//点击的记数
