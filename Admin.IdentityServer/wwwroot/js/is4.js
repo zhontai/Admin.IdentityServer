@@ -74,8 +74,10 @@ $(function () {
     var width = $('.form-group:first').width() + 'px';
     // 滑块验证
     var slideVerify = $('#content').slideVerify({
-        //baseUrl: 'https://admin.zhontai.net',  //服务器请求地址, 默认地址为Api服务器;
-        baseUrl: 'http://localhost:8000',
+        getUrl: _captcha.getUrl ? _captcha.getUrl : 'https://admin.zhontai.net/api/admin/auth/get-captcha',
+        checkUrl: _captcha.checkUrl ? _captcha.checkUrl : 'https://admin.zhontai.net/api/admin/auth/check-captcha',
+        //getUrl: _captcha.getUrl ? _captcha.getUrl : 'http://localhost:8000/api/admin/auth/get-captcha',
+        //checkUrl: _captcha.checkUrl ? _captcha.checkUrl : 'http://localhost:8000/api/admin/auth/check-captcha',
         containerId: '#btnLogin',//popup模式 必填 被点击之后出现行为验证码的元素id
         mode: mode,     //展示模式 embed popup
         imgSize: {       //图片的大小对象,有默认值{ width: '310px',height: '155px'},可省略

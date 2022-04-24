@@ -1,56 +1,52 @@
-;(function($, window, document,undefined) {
-
+;(function($, window, document, undefined) {
 	  // 初始话 uuid 
-		uuid()
-		function uuid() {
-			var s = [];
-			var hexDigits = "0123456789abcdef";
-			for (var i = 0; i < 36; i++) {
-					s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-			}
-			s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
-			s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
-			s[8] = s[13] = s[18] = s[23] = "-";
-	
-			var slider = 'slider'+ '-'+s.join("");
-			var point = 'point'+ '-'+s.join("");
-			// 判断下是否存在 slider
-			console.log(localStorage.getItem('slider'))
-			if(!localStorage.getItem('slider')) {
-				localStorage.setItem('slider', slider)
-			}
-			if(!localStorage.getItem('point')) {
-				localStorage.setItem("point",point);
-			}
+	uuid()
+	function uuid() {
+		var s = [];
+		var hexDigits = "0123456789abcdef";
+		for (var i = 0; i < 36; i++) {
+				s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
 		}
+		s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+		s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+		s[8] = s[13] = s[18] = s[23] = "-";
+	
+		var slider = 'slider'+ '-'+s.join("");
+		var point = 'point'+ '-'+s.join("");
+		// 判断下是否存在 slider
+		console.log(localStorage.getItem('slider'))
+		if(!localStorage.getItem('slider')) {
+			localStorage.setItem('slider', slider)
+		}
+		if(!localStorage.getItem('point')) {
+			localStorage.setItem("point",point);
+		}
+	}
 
 	var startX,startY;
- 
-		document.addEventListener("touchstart",function(e){
+	document.addEventListener("touchstart",function(e){
+			startX = e.targetTouches[0].pageX;
+			startY = e.targetTouches[0].pageY;
+	});
 		
-				startX = e.targetTouches[0].pageX;
-				startY = e.targetTouches[0].pageY;
-		});
-		
-		document.addEventListener("touchmove",function(e){
-		
-				var moveX = e.targetTouches[0].pageX;
-				var moveY = e.targetTouches[0].pageY;
+	document.addEventListener("touchmove",function(e){
+			var moveX = e.targetTouches[0].pageX;
+			var moveY = e.targetTouches[0].pageY;
 				
-				if(Math.abs(moveX-startX)>Math.abs(moveY-startY)){
-						e.preventDefault();
-				}
-		},{passive:false});
+			if(Math.abs(moveX-startX)>Math.abs(moveY-startY)){
+					e.preventDefault();
+			}
+	},{passive:false});
 		
     //请求图片get事件
-    function getPictrue(data,baseUrl,resolve,reject){
+    function getPictrue(data,url,resolve,reject){
 		$.ajax({
 			type : "get",
 			contentType: "application/json;charset=UTF-8",
-			url: baseUrl + "/api/admin/auth/get-captcha",
+			url: url,
 			data :JSON.stringify(data),
 			cache: false,
-      crossDomain: true == !(document.all),
+			crossDomain: true == !(document.all),
 			success:function(res){
 				resolve(res)
 			},
@@ -60,14 +56,14 @@
 		})
 	}
 	//验证图片check事件
-	function checkPictrue(data, baseUrl, resolve, reject) {
+	function checkPictrue(data, url, resolve, reject) {
 		$.ajax({
 			type : "get",
 			contentType: "application/json;charset=UTF-8",
-			url: baseUrl + "/api/admin/auth/check-captcha",
+			url: url,
 			data: data,
 			cache: false,
-      crossDomain: true == !(document.all),
+			crossDomain: true == !(document.all),
 			success:function(res){
 				resolve(res)
 			},
@@ -85,7 +81,9 @@
 		this.secretKey = '',
 		this.data = null,
         this.defaults = {
-			baseUrl:"http://localhost:8000",
+			baseUrl: "http://localhost:8000",
+			getUrl: 'http://localhost:8000/api/admin/auth/get-captcha',
+			checkUrl: 'http://localhost:8000/api/admin/auth/check-captcha',
 			containerId:'',
         	captchaType:"blockPuzzle",
 			mode: 'embed',	// 弹出式popup，嵌入式embed，悬浮hover
@@ -326,7 +324,7 @@
 					clientUid: localStorage.getItem('slider'),
 					ts: Date.now()
 				}
-				checkPictrue(data, this.options.baseUrl, function (res) {
+				checkPictrue(data, this.options.checkUrl, function (res) {
 					// 请求检查成功的判断
 					if (res.code == 1) {
 						_this.htmlDoms.bar_area.removeClass('verify-bar-area--moving');
@@ -459,7 +457,7 @@
 			this.isEnd = false;
 			this.status = false;
 			this.moveLeftDistance = 0;
-			getPictrue({ captchaType: "blockPuzzle", clientUid: localStorage.getItem('slider'), ts: Date.now() }, this.options.baseUrl, function (res) {
+			getPictrue({ captchaType: "blockPuzzle", clientUid: localStorage.getItem('slider'), ts: Date.now() }, this.options.getUrl, function (res) {
 				if (res.code == 1) {
 					_this.$element.find(".backImg")[0].src = res.data.data.baseImage
 					_this.$element.find(".bock-backImg")[0].src = res.data.data.blockImage

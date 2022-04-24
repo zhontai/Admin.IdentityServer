@@ -4,5 +4,11 @@
     "inputFiles": [
       "wwwroot/js/is4.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/captcha/slide-jigsaw/js/verify.min.js",
+    "inputFiles": [
+      "wwwroot/captcha/slide-jigsaw/js/verify.js"
+    ]
   }
 ]

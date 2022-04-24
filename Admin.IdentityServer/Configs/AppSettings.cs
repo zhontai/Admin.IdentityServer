@@ -66,6 +66,7 @@ namespace Admin.IdentityServer.Configs
     public class Captcha
     {
         public string CheckUrl { get; set; }
+        public string GetUrl { get; set; }
     }
 
     /// <summary>

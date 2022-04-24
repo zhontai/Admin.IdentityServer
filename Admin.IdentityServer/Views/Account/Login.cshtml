@@ -1,5 +1,6 @@
-﻿@model Admin.IdentityServer.Input.LoginInput
-
+﻿@using Admin.IdentityServer.Configs
+@model Admin.IdentityServer.Input.LoginInput
+@inject AppSettings appSettings
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,11 +69,16 @@
     <div class="login-footer">
         © 2020 All Rights Reserved. zhontai
     </div>
-
+    <script type="text/javascript">
+        var _captcha = {
+            getUrl: '@appSettings.Captcha.GetUrl',
+            checkUrl: '@appSettings.Captcha.CheckUrl'
+        }
+    </script>
     <script src="~/js/jquery.min.js"></script>
     <script src="~/captcha/slide-jigsaw/js/ase.js?v=1.2.1"></script>
     <script src="~/captcha/slide-jigsaw/js/crypto-js.js?v=1.2.1"></script>
-    <script src="~/captcha/slide-jigsaw/js/verify.js?v=@(DateTime.Now.Ticks)"></script>
+    <script src="~/captcha/slide-jigsaw/js/verify.min.js?v=@(DateTime.Now.Ticks)"></script>
     <script src="~/js/is4.min.js?v==@(DateTime.Now.Ticks)"></script>
 </body>
 </html>
