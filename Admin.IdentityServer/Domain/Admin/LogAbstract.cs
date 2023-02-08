@@ -14,12 +14,6 @@ namespace Admin.IdentityServer.Domain.Admin
         public long? TenantId { get; set; }
 
         /// <summary>
-        /// 昵称
-        /// </summary>
-        [Column(StringLength = 60)]
-        public string NickName { get; set; }
-
-        /// <summary>
         /// IP
         /// </summary>
         [Column(StringLength = 100)]

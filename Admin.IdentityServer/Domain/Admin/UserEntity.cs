@@ -17,6 +17,18 @@ namespace Admin.IdentityServer.Domain.Admin
         public long? TenantId { get; set; }
 
         /// <summary>
+        /// 用户类型
+        /// </summary>
+        [Column(MapType = typeof(int))]
+        public UserType Type { get; set; } = UserType.DefaultUser;
+
+        /// <summary>
+        /// 姓名
+        /// </summary>
+        [Column(StringLength = 20)]
+        public string Name { get; set; }
+
+        /// <summary>
         /// 账号
         /// </summary>
         [Column(StringLength = 60)]

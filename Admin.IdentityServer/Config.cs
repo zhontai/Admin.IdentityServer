@@ -29,7 +29,9 @@ namespace Admin.IdentityServer
                 {
                     UserClaims =  { ClaimTypes.Name, JwtClaimTypes.Name },
                     //v4新增
-                    Scopes = { "admin.server.api" },
+                    Scopes = { 
+                        "admin.server.api",
+                    },
                     ApiSecrets = new List<Secret>()
                     {
                         new Secret("secret".Sha256())
@@ -45,26 +47,28 @@ namespace Admin.IdentityServer
                     ClientId = "admin.server.api",
                     ClientName = "admin后端api认证",
                     AllowedGrantTypes = GrantTypes.Implicit,
-                    //ClientSecrets = new []{ new Secret("secret".Sha256()) },
+                    ClientSecrets = new []{ new Secret("secret".Sha256()) },
                     RequireConsent = false, //同意
                     AllowAccessTokensViaBrowser = true,
+                    AllowOfflineAccess = true,
                     AccessTokenLifetime = 3600 * 2, //2小时 = 3600 * 2
-                    //SlidingRefreshTokenLifetime = 3600 * 24, //1天 = 3600 * 24
+                    SlidingRefreshTokenLifetime = 3600 * 24, //1天 = 3600 * 24
                     RedirectUris =
                     {
-                        "http://localhost:8000/oauth2-redirect.html",
+                        "http://localhost:8000/swagger/oauth2-redirect.html",
                     },
                     PostLogoutRedirectUris =
                     {
-                        $"http://localhost:8000"
+                        $"http://localhost:8000/swagger"
                     },
                     AllowedCorsOrigins = appSettings.CorUrls,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "admin.server.api"
-                    }
+                        "admin.server.api",
+                    },
+                    RequirePkce = false
                 },
                 new Client
                 {
@@ -85,7 +89,7 @@ namespace Admin.IdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "admin.server.api"
+                        "admin.server.api",
                     }
                 }
             };

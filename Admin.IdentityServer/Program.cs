@@ -162,8 +162,6 @@ if (appSettings.Health)
     services.AddHealthChecks();
 }
 
- 
-
 var app = builder.Build();
 app.UseHttpsRedirection();
 
@@ -185,19 +183,15 @@ app.UseRouting();
 app.UseIdentityServer();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
+app.MapControllers();
+if (appSettings.Health)
 {
-    endpoints.MapControllers();
-
-    if (appSettings.Health)
+    app.MapHealthChecks("/health", new HealthCheckOptions
     {
-        endpoints.MapHealthChecks("/health", new HealthCheckOptions
-        {
-            Predicate = registration => true,
-            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-        });
-    }
-});
+        Predicate = registration => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+}
 
 if (env.IsDevelopment() || appSettings.Swagger)
 {

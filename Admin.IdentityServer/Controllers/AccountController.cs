@@ -130,7 +130,7 @@ namespace Admin.IdentityServer
             var context = await _interaction.GetAuthorizationContextAsync(input.ReturnUrl);
 
             var user = await _userRepository.Select.Where(a => a.UserName == input.UserName)
-                .ToOneAsync(a => new { a.Id, a.Password, a.NickName, a.TenantId });
+                .ToOneAsync(a => new { a.Id, a.Password, a.TenantId });
 
             if (user == null)
             {
@@ -167,11 +167,10 @@ namespace Admin.IdentityServer
             {
                 Id = YitIdHelper.NextId(),
                 TenantId = user.TenantId,
-                CreatedUserId = user.Id,
-                NickName = user.NickName,
-                CreatedUserName = input.UserName,
                 ElapsedMilliseconds = sw.ElapsedMilliseconds,
-                Status = true
+                Status = true,
+                CreatedUserId = user.Id,
+                CreatedUserName = input.UserName,
             };
             await AddLoginLog(loginLogEntity);
 

@@ -42,7 +42,15 @@ namespace Admin.IdentityServer.Account
             var sub = context.Subject?.GetSubjectId();
             if (sub == null) throw new Exception("用户Id为空");
 
-            var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => new { a.UserName, a.NickName, a.TenantId });
+            var user = await _userRepository.Select.WhereDynamic(sub).ToOneAsync(a => 
+            new 
+            { 
+                a.Id,
+                a.UserName,
+                a.Name, 
+                a.TenantId,
+                a.Type
+            });
             if (user == null)
             {
                 _logger?.LogWarning("用户{0}不存在", sub);
@@ -51,15 +59,16 @@ namespace Admin.IdentityServer.Account
             {
                 var claims = new List<Claim>()
                 {
+                    new Claim(ClaimAttributes.UserId, user.Id.ToString(), ClaimValueTypes.Integer64),
                     new Claim(ClaimAttributes.UserName, user.UserName ?? ""),
-                    new Claim(ClaimAttributes.UserNickName, user.NickName ?? ""),
-                    new Claim(ClaimAttributes.TenantId, user.TenantId?.ToString() ?? "")
+                    new Claim(ClaimAttributes.Name, user.Name),
+                    new Claim(ClaimAttributes.UserType, ((int)user.Type).ToString(), ClaimValueTypes.Integer32),
+                    new Claim(ClaimAttributes.TenantId, user.TenantId?.ToString() ?? ""),
                 };
                 if (_appSettings.Tenant)
                 {
-                    var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType, a.DataIsolationType });
+                    var tenant = await _tenantRepository.Select.WhereDynamic(user.TenantId).ToOneAsync(a => new { a.TenantType });
                     claims.Add(new Claim(ClaimAttributes.TenantType, tenant.TenantType?.ToString() ?? ""));
-                    claims.Add(new Claim(ClaimAttributes.DataIsolationType, tenant.DataIsolationType.ToString()));
                 }
 
                 context.IssuedClaims = claims;

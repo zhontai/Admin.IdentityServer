@@ -125,7 +125,6 @@ $(function () {
             data: input,
             cache: false,
             success: function (res) {
-                debugger
                 if (!res) {
                     $me.prop('disabled', false).removeClass('is-disabled').text('重新登录');
                     return;

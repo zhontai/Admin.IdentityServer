@@ -31,8 +31,13 @@
         public const string TenantType = "tt";
 
         /// <summary>
-        /// 数据隔离
+        /// 姓名
         /// </summary>
-        public const string DataIsolationType = "dit";
+        public const string Name = "na";
+
+        /// <summary>
+        /// 用户类型
+        /// </summary>
+        public const string UserType = "ut";
     }
 }

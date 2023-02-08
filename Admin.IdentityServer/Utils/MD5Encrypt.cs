@@ -40,7 +40,7 @@ namespace Admin.IdentityServer.Utils
                 byte[] s = md5.ComputeHash(Encoding.UTF8.GetBytes(password));
                 foreach (var item in s)
                 {
-                    pwd = string.Concat(pwd, item.ToString("X"));
+                    pwd = string.Concat(pwd, item.ToString("X2"));
                 }
                 return pwd;
             }

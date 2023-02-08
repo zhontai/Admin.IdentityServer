@@ -326,7 +326,7 @@
 				}
 				checkPictrue(data, this.options.checkUrl, function (res) {
 					// 请求检查成功的判断
-					if (res.code == 1) {
+					if (res.success) {
 						_this.htmlDoms.bar_area.removeClass('verify-bar-area--moving');
 						_this.htmlDoms.bar_area.addClass('verify-bar-area--success');
 						_this.htmlDoms.icon.removeClass('icon-right');
@@ -458,7 +458,7 @@
 			this.status = false;
 			this.moveLeftDistance = 0;
 			getPictrue({ captchaType: "blockPuzzle", clientUid: localStorage.getItem('slider'), ts: Date.now() }, this.options.getUrl, function (res) {
-				if (res.code == 1) {
+				if (res.success) {
 					_this.$element.find(".backImg")[0].src = res.data.data.baseImage
 					_this.$element.find(".bock-backImg")[0].src = res.data.data.blockImage
 					_this.secretKey = res.data.data.secretKey
